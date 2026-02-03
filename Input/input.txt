@@ -1,0 +1,48 @@
+// coment 1
+public class Program1 {
+    public static void main(String[] args) {
+        byte byteVar = 10;
+        short shortVar = 100;
+        int decimalInt = 42;
+        int octalInt = 010;
+        int hexInt = 0x2A;
+        int binInt = 0b101010;
+        long longVar = 1_000_000L;
+        double doubleVar = 3.14;
+        double sciVar = 1.2e3;
+        double hexFloat = 0x1.0p2;
+        float floatVar = 2.5f;
+        char charVar = 'J';
+        char unicodeChar = '\u0041';
+        boolean boolVar = true;
+        var message = "Типы данных и литералы";
+	// coment 2
+        System.out.println(message);
+        System.out.println(byteVar + " " + octalInt + " " + hexFloat + " " + unicodeChar);
+
+/*
+multiline coment 1
+*/
+        for (int i = 0; i < 10; i++) {
+            if (i == 2) continue;
+            if (i == 5) break;
+            System.out.println(i);
+        }
+
+        int j = 0;
+        while (j < 2) {
+            System.out.println(j);
+            j++;
+        }
+
+        int k = 0;
+        do {
+            System.out.println(k);
+            k++;
+        } while (k < 1);
+    }
+}
+
+// coment 3
+
+
