@@ -19,25 +19,24 @@ public record Token(TokenKind Kind, string Value, int StartPos, bool IsFromNewLi
 {
     public override string ToString()
     {
-        switch (Kind)
+        return Kind switch
         {
-            case TokenKind.EOF:
-                return "EOF";
-            case TokenKind.ERROR:
-                return $"ERROR({Value})";
-            case TokenKind.IDENTIFIER:
-                return $"IDENTIFIER({Value})";
-            case TokenKind.KEYWORD:
-                return $"KEYWORD({Value})";
-            case TokenKind.LITERAL:
-                return $"LITERAL({Value})";
-            case TokenKind.OPERATOR:
-                return $"OPERATOR({Value})";
-            case TokenKind.SEPARATOR:
-                return $"SEPARATOR({Value})";
-            default:
-                return "ERROR(ToString method for this Kind is not implemented)";
-        }
+            TokenKind.EOF => "EOF",
+            TokenKind.ERROR => $"ERROR({Value})",
+            TokenKind.IDENTIFIER => $"IDENTIFIER({Value})",
+            TokenKind.KEYWORD => $"KEYWORD({Value})",
+            TokenKind.LITERAL => $"LITERAL({Value})",
+            TokenKind.OPERATOR => $"OPERATOR({Value})",
+            TokenKind.SEPARATOR => $"SEPARATOR({Value})",
+            _ => "ERROR(ToString method for this Kind is not implemented)"
+        };
+    }
+}
 
+public record LiteralToken(TokenKind Kind, string Value, int StartPos, bool IsFromNewLine, Type Type) : Token(Kind, Value, StartPos, IsFromNewLine)
+{
+    public override string ToString()
+    {
+        return $"LITERAL({Value}, {Type})";
     }
 }

@@ -13,7 +13,7 @@ do
     tokens.Add(token);
 } while (token.Kind != TokenKind.EOF);
 
-int lineCnt = 0;
+var lineCnt = 1;
 foreach (var t in tokens)
 {
     if (t.IsFromNewLine)
@@ -48,7 +48,7 @@ foreach (var t in tokens)
     if (curKind != t.Kind)
     {
         var cntd = curList.CountBy(t => t.Value);
-        int i = 1;
+        var i = 1;
         Console.WriteLine(curKind.ToString());
         foreach (var p in cntd)
         {
