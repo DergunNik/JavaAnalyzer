@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using JavaTranslator.Tokens;
 
 namespace JavaTranslator
@@ -47,6 +49,7 @@ namespace JavaTranslator
 
             var c = Peek();
 
+            // идентификаторы и ключевые слова (true, false, null)
             if (IsIdentifierStart(c))
             {
                 var sb = new StringBuilder();
@@ -55,35 +58,53 @@ namespace JavaTranslator
                     sb.Append(Next());
 
                 var val = sb.ToString();
+
                 if (Keywords.IsKeyword(val))
                     return new Token(TokenKind.KEYWORD, val, start, isFromNewLine);
+
                 if (Keywords.IsLiteral(val))
-                    return new Token(TokenKind.LITERAL, val, start, isFromNewLine);
+                {
+                    Type literalType = val switch
+                    {
+                        "true" or "false" => typeof(bool),
+                        "null" => typeof(JavaNullType),
+                        _ => typeof(object)
+                    };
+                    return new LiteralToken(TokenKind.LITERAL, val, start, isFromNewLine, literalType);
+                }
+
                 return new Token(TokenKind.IDENTIFIER, val, start, isFromNewLine);
             }
 
+            // числовые литералы
             if (char.IsDigit(c))
             {
-                var num = ReadNumberLiteral();
-                return new Token(TokenKind.LITERAL, num, start, isFromNewLine);
+                var numStr = ReadNumberLiteral();
+                var numType = DetermineNumberType(numStr);
+                return new LiteralToken(TokenKind.LITERAL, numStr, start, isFromNewLine, numType);
             }
 
+            // cтроковые литералы
             if (c == '"')
             {
                 var str = ReadStringLiteral();
                 if (str == null)
                     return new Token(TokenKind.ERROR, "Unterminated string literal", start, isFromNewLine);
-                return new Token(TokenKind.LITERAL, str, start, isFromNewLine);
+                
+                return new LiteralToken(TokenKind.LITERAL, str, start, isFromNewLine, typeof(string));
             }
 
+            // cимвольные литералы
             if (c == '\'')
             {
-                var ch = ReadCharLiteral();
-                if (ch == null)
+                var chStr = ReadCharLiteral();
+                if (chStr == null)
                     return new Token(TokenKind.ERROR, "Unterminated char literal", start, isFromNewLine);
-                return new Token(TokenKind.LITERAL, ch, start, isFromNewLine);
+
+                return new LiteralToken(TokenKind.LITERAL, chStr, start, isFromNewLine, typeof(char));
             }
 
+            // операторы
             var remain = _inputText.Length - _position;
             var maxTry = Math.Min(MaxOperatorLen, remain);
             for (var len = maxTry; len > 0; len--)
@@ -97,6 +118,7 @@ namespace JavaTranslator
                 }
             }
 
+            // разделители
             maxTry = Math.Min(MaxSeparatorLen, remain);
             for (var len = maxTry; len > 0; len--)
             {
@@ -113,6 +135,36 @@ namespace JavaTranslator
             _atLineStart = false;
             return new Token(TokenKind.ERROR, bad.ToString(), start, isFromNewLine);
         }
+
+        #region Type Helpers
+        
+        private static Type DetermineNumberType(string literal)
+        {
+            if (string.IsNullOrEmpty(literal)) return typeof(int);
+
+            char last = char.ToLowerInvariant(literal[^1]);
+
+            bool isHex = literal.Length > 2 && literal.StartsWith("0x", StringComparison.OrdinalIgnoreCase);
+            
+            if (isHex && (literal.Contains('p') || literal.Contains('P')))
+            {
+                if (last == 'f') return typeof(float);
+                return typeof(double);
+            }
+
+            if (last == 'l') return typeof(long);
+            if (last == 'f') return typeof(float);
+            if (last == 'd') return typeof(double);
+
+            if (literal.Contains('.') || literal.Contains('e') || literal.Contains('E'))
+            {
+                return typeof(double);
+            }
+
+            return typeof(int);
+        }
+
+        #endregion
 
         #region Helpers
 
@@ -246,12 +298,11 @@ namespace JavaTranslator
             {
                 Next(); Next();
                 ConsumeDigitsAllowUnderscore(IsHexDigit);
-                var hasFraction = false;
+                
                 if (Peek() == '.')
                 {
                     if (IsHexDigit(Peek(1)) || Peek(1) == '_')
                     {
-                        hasFraction = true;
                         Next();
                         ConsumeDigitsAllowUnderscore(IsHexDigit);
                     }
@@ -284,12 +335,10 @@ namespace JavaTranslator
 
             ConsumeDigitsAllowUnderscore(char.IsDigit);
 
-            var seenDecimalPoint = false;
             if (Peek() == '.')
             {
                 if (char.IsDigit(Peek(1)))
                 {
-                    seenDecimalPoint = true;
                     Next();
                     ConsumeDigitsAllowUnderscore(char.IsDigit);
                 }
@@ -304,10 +353,6 @@ namespace JavaTranslator
                 if (!expDigits)
                 {
                     _position = save;
-                }
-                else
-                {
-                    // exponent ok
                 }
             }
 
@@ -395,12 +440,20 @@ namespace JavaTranslator
                     sb.Append(esc);
                 }
             }
+            else if (first == '\'') 
+            {
+                 return null; 
+            }
 
             if (IsEOF) return null;
-            var closing = Next();
-            sb.Append(closing);
-            if (closing != '\'') return null;
-            return sb.ToString();
+            
+            if (Peek() == '\'')
+            {
+                sb.Append(Next());
+                return sb.ToString();
+            }
+            
+            return null;
         }
 
         #endregion

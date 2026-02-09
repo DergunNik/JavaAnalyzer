@@ -16,6 +16,7 @@ public class Program1 {
         char unicodeChar = '\u0041';
         boolean boolVar = true;
         var message = "Типы данных и литералы";
+        var nullVar = null;
 	// comment 2
         System.out.println(message);
         System.out.println(byteVar + " " + octalInt + " " + hexFloat + " " + unicodeChar);

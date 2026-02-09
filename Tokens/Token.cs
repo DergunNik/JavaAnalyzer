@@ -33,6 +33,8 @@ public record Token(TokenKind Kind, string Value, int StartPos, bool IsFromNewLi
     }
 }
 
+class JavaNullType { }
+
 public record LiteralToken(TokenKind Kind, string Value, int StartPos, bool IsFromNewLine, Type Type) : Token(Kind, Value, StartPos, IsFromNewLine)
 {
     public override string ToString()

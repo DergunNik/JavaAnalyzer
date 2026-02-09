@@ -1,40 +1,41 @@
-1       KEYWORD(public)KEYWORD(class)IDENTIFIER(Program1)SEPARATOR({)
+﻿1       KEYWORD(public)KEYWORD(class)IDENTIFIER(Program1)SEPARATOR({)
 2       KEYWORD(public)KEYWORD(static)KEYWORD(void)IDENTIFIER(main)SEPARATOR(()IDENTIFIER(String)SEPARATOR([)SEPARATOR(])IDENTIFIER(args)SEPARATOR())SEPARATOR({)
-3       KEYWORD(byte)IDENTIFIER(byteVar)OPERATOR(=)LITERAL(10)SEPARATOR(;)
-4       KEYWORD(short)IDENTIFIER(shortVar)OPERATOR(=)LITERAL(100)SEPARATOR(;)
-5       KEYWORD(int)IDENTIFIER(decimalInt)OPERATOR(=)LITERAL(42)SEPARATOR(;)
-6       KEYWORD(int)IDENTIFIER(octalInt)OPERATOR(=)LITERAL(010)SEPARATOR(;)
-7       KEYWORD(int)IDENTIFIER(hexInt)OPERATOR(=)LITERAL(0x2A)SEPARATOR(;)
-8       KEYWORD(int)IDENTIFIER(binInt)OPERATOR(=)LITERAL(0b101010)SEPARATOR(;)
-9       KEYWORD(long)IDENTIFIER(longVar)OPERATOR(=)LITERAL(1_000_000L)SEPARATOR(;)
-10      KEYWORD(double)IDENTIFIER(doubleVar)OPERATOR(=)LITERAL(3.14)SEPARATOR(;)
-11      KEYWORD(double)IDENTIFIER(sciVar)OPERATOR(=)LITERAL(1.2e3)SEPARATOR(;)
-12      KEYWORD(double)IDENTIFIER(hexFloat)OPERATOR(=)LITERAL(0x1.0p2)SEPARATOR(;)
-13      KEYWORD(float)IDENTIFIER(floatVar)OPERATOR(=)LITERAL(2.5f)SEPARATOR(;)
-14      KEYWORD(char)IDENTIFIER(charVar)OPERATOR(=)LITERAL('J')SEPARATOR(;)
-15      KEYWORD(char)IDENTIFIER(unicodeChar)OPERATOR(=)LITERAL('\u0041')SEPARATOR(;)
-16      KEYWORD(boolean)IDENTIFIER(boolVar)OPERATOR(=)LITERAL(true)SEPARATOR(;)
-17      IDENTIFIER(var)IDENTIFIER(message)OPERATOR(=)LITERAL("Типы данных и литералы")SEPARATOR(;)
-18      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(message)SEPARATOR())SEPARATOR(;)
-19      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(byteVar)OPERATOR(+)LITERAL(" ")OPERATOR(+)IDENTIFIER(octalInt)OPERATOR(+)LITERAL(" ")OPERATOR(+)IDENTIFIER(hexFloat)OPERATOR(+)LITERAL(" ")OPERATOR(+)IDENTIFIER(unicodeChar)SEPARATOR())SEPARATOR(;)
-20      KEYWORD(for)SEPARATOR(()KEYWORD(int)IDENTIFIER(i)OPERATOR(=)LITERAL(0)SEPARATOR(;)IDENTIFIER(i)OPERATOR(<)LITERAL(10)SEPARATOR(;)IDENTIFIER(i)OPERATOR(++)SEPARATOR())SEPARATOR({)
-21      KEYWORD(if)SEPARATOR(()IDENTIFIER(i)OPERATOR(==)LITERAL(2)SEPARATOR())KEYWORD(continue)SEPARATOR(;)
-22      KEYWORD(if)SEPARATOR(()IDENTIFIER(i)OPERATOR(==)LITERAL(5)SEPARATOR())KEYWORD(break)SEPARATOR(;)
-23      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(i)SEPARATOR())SEPARATOR(;)
-24      SEPARATOR(})
-25      KEYWORD(int)IDENTIFIER(j)OPERATOR(=)LITERAL(0)SEPARATOR(;)
-26      KEYWORD(while)SEPARATOR(()IDENTIFIER(j)OPERATOR(<)LITERAL(2)SEPARATOR())SEPARATOR({)
-27      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(j)SEPARATOR())SEPARATOR(;)
-28      IDENTIFIER(j)OPERATOR(++)SEPARATOR(;)
-29      SEPARATOR(})
-30      KEYWORD(int)IDENTIFIER(k)OPERATOR(=)LITERAL(0)SEPARATOR(;)
-31      KEYWORD(do)SEPARATOR({)
-32      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(k)SEPARATOR())SEPARATOR(;)
-33      IDENTIFIER(k)OPERATOR(++)SEPARATOR(;)
-34      SEPARATOR(})KEYWORD(while)SEPARATOR(()IDENTIFIER(k)OPERATOR(<)LITERAL(1)SEPARATOR())SEPARATOR(;)
-35      SEPARATOR(})
+3       KEYWORD(byte)IDENTIFIER(byteVar)OPERATOR(=)LITERAL(10, System.Int32)SEPARATOR(;)
+4       KEYWORD(short)IDENTIFIER(shortVar)OPERATOR(=)LITERAL(100, System.Int32)SEPARATOR(;)
+5       KEYWORD(int)IDENTIFIER(decimalInt)OPERATOR(=)LITERAL(42, System.Int32)SEPARATOR(;)
+6       KEYWORD(int)IDENTIFIER(octalInt)OPERATOR(=)LITERAL(010, System.Int32)SEPARATOR(;)
+7       KEYWORD(int)IDENTIFIER(hexInt)OPERATOR(=)LITERAL(0x2A, System.Int32)SEPARATOR(;)
+8       KEYWORD(int)IDENTIFIER(binInt)OPERATOR(=)LITERAL(0b101010, System.Int32)SEPARATOR(;)
+9       KEYWORD(long)IDENTIFIER(longVar)OPERATOR(=)LITERAL(1_000_000L, System.Int64)SEPARATOR(;)
+10      KEYWORD(double)IDENTIFIER(doubleVar)OPERATOR(=)LITERAL(3.14, System.Double)SEPARATOR(;)
+11      KEYWORD(double)IDENTIFIER(sciVar)OPERATOR(=)LITERAL(1.2e3, System.Double)SEPARATOR(;)
+12      KEYWORD(double)IDENTIFIER(hexFloat)OPERATOR(=)LITERAL(0x1.0p2, System.Double)SEPARATOR(;)
+13      KEYWORD(float)IDENTIFIER(floatVar)OPERATOR(=)LITERAL(2.5f, System.Single)SEPARATOR(;)
+14      KEYWORD(char)IDENTIFIER(charVar)OPERATOR(=)LITERAL('J', System.Char)SEPARATOR(;)
+15      KEYWORD(char)IDENTIFIER(unicodeChar)OPERATOR(=)LITERAL('\u0041', System.Char)SEPARATOR(;)
+16      KEYWORD(boolean)IDENTIFIER(boolVar)OPERATOR(=)LITERAL(true, System.Boolean)SEPARATOR(;)
+17      IDENTIFIER(var)IDENTIFIER(message)OPERATOR(=)LITERAL("Типы данных и литералы", System.String)SEPARATOR(;)
+18      IDENTIFIER(var)IDENTIFIER(nullVar)OPERATOR(=)LITERAL(null, JavaTranslator.Tokens.JavaNullType)SEPARATOR(;)
+19      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(message)SEPARATOR())SEPARATOR(;)
+20      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(byteVar)OPERATOR(+)LITERAL(" ", System.String)OPERATOR(+)IDENTIFIER(octalInt)OPERATOR(+)LITERAL(" ", System.String)OPERATOR(+)IDENTIFIER(hexFloat)OPERATOR(+)LITERAL(" ", System.String)OPERATOR(+)IDENTIFIER(unicodeChar)SEPARATOR())SEPARATOR(;)
+21      KEYWORD(for)SEPARATOR(()KEYWORD(int)IDENTIFIER(i)OPERATOR(=)LITERAL(0, System.Int32)SEPARATOR(;)IDENTIFIER(i)OPERATOR(<)LITERAL(10, System.Int32)SEPARATOR(;)IDENTIFIER(i)OPERATOR(++)SEPARATOR())SEPARATOR({)
+22      KEYWORD(if)SEPARATOR(()IDENTIFIER(i)OPERATOR(==)LITERAL(2, System.Int32)SEPARATOR())KEYWORD(continue)SEPARATOR(;)
+23      KEYWORD(if)SEPARATOR(()IDENTIFIER(i)OPERATOR(==)LITERAL(5, System.Int32)SEPARATOR())KEYWORD(break)SEPARATOR(;)
+24      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(i)SEPARATOR())SEPARATOR(;)
+25      SEPARATOR(})
+26      KEYWORD(int)IDENTIFIER(j)OPERATOR(=)LITERAL(0, System.Int32)SEPARATOR(;)
+27      KEYWORD(while)SEPARATOR(()IDENTIFIER(j)OPERATOR(<)LITERAL(2, System.Int32)SEPARATOR())SEPARATOR({)
+28      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(j)SEPARATOR())SEPARATOR(;)
+29      IDENTIFIER(j)OPERATOR(++)SEPARATOR(;)
+30      SEPARATOR(})
+31      KEYWORD(int)IDENTIFIER(k)OPERATOR(=)LITERAL(0, System.Int32)SEPARATOR(;)
+32      KEYWORD(do)SEPARATOR({)
+33      IDENTIFIER(System)SEPARATOR(.)IDENTIFIER(out)SEPARATOR(.)IDENTIFIER(println)SEPARATOR(()IDENTIFIER(k)SEPARATOR())SEPARATOR(;)
+34      IDENTIFIER(k)OPERATOR(++)SEPARATOR(;)
+35      SEPARATOR(})KEYWORD(while)SEPARATOR(()IDENTIFIER(k)OPERATOR(<)LITERAL(1, System.Int32)SEPARATOR())SEPARATOR(;)
 36      SEPARATOR(})
-37      EOF
+37      SEPARATOR(})
+38      EOF
 
 Stats
 
@@ -43,78 +44,80 @@ EOF
 1       1       
 
 IDENTIFIER
-1       5       System
+1       2       hexFloat
 2       2       octalInt
-3       2       hexFloat
-4       6       i
-5       1       charVar
-6       1       var
-7       1       hexInt
-8       2       message
-9       1       binInt
-10      5       out
-11      2       unicodeChar
-12      1       longVar
-13      2       byteVar
-14      5       println
-15      1       doubleVar
-16      1       decimalInt
-17      4       k
-18      1       Program1
-19      1       floatVar
-20      1       main
+3       5       println
+4       5       out
+5       5       System
+6       2       message
+7       1       nullVar
+8       2       var
+9       1       boolVar
+10      2       unicodeChar
+11      1       charVar
+12      1       floatVar
+13      1       sciVar
+14      6       i
+15      4       k
+16      4       j
+17      1       doubleVar
+18      1       longVar
+19      2       byteVar
+20      1       hexInt
 21      1       String
 22      1       args
-23      4       j
-24      1       shortVar
-25      1       boolVar
-26      1       sciVar
+23      1       binInt
+24      1       Program1
+25      1       main
+26      1       decimalInt
+27      1       shortVar
 
 KEYWORD
-1       2       char
+1       7       int
 2       1       boolean
-3       2       if
-4       7       int
-5       1       continue
-6       1       break
-7       2       while
-8       1       do
-9       1       for
-10      2       public
-11      3       double
-12      1       long
-13      1       byte
-14      1       short
-15      1       void
-16      1       float
-17      1       static
-18      1       class
+3       1       long
+4       2       while
+5       1       byte
+6       2       char
+7       2       if
+8       1       break
+9       1       short
+10      1       continue
+11      2       public
+12      1       for
+13      3       double
+14      1       static
+15      1       class
+16      1       void
+17      1       float
+18      1       do
 
 LITERAL
-1       1       0x2A
-2       1       0b101010
-3       3       0
+1       2       10
+2       1       5
+3       1       1
 4       3       " "
-5       2       10
-6       1       42
-7       1       010
-8       1       5
-9       1       1_000_000L
+5       1       1_000_000L
+6       1       3.14
+7       2       2
+8       1       42
+9       3       0
 10      1       100
-11      2       2
-12      1       1
-13      1       2.5f
-14      1       0x1.0p2
-15      1       1.2e3
-16      1       "Типы данных и литералы"
-17      1       '\u0041'
-18      1       true
-19      1       3.14
-20      1       'J'
+11      1       0b101010
+12      1       1.2e3
+13      1       'J'
+14      1       010
+15      1       null
+16      1       '\u0041'
+17      1       0x1.0p2
+18      1       "Типы данных и литералы"
+19      1       2.5f
+20      1       0x2A
+21      1       true
 
 OPERATOR
 1       3       ++
-2       18      =
-3       2       ==
-4       3       <
+2       19      =
+3       3       <
+4       2       ==
 5       6       +
