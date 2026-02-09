@@ -1,4 +1,4 @@
-// coment 1
+// comment 1
 public class Program1 {
     public static void main(String[] args) {
         byte byteVar = 10;
@@ -16,12 +16,13 @@ public class Program1 {
         char unicodeChar = '\u0041';
         boolean boolVar = true;
         var message = "Типы данных и литералы";
-	// coment 2
+        var nullVar = null;
+	// comment 2
         System.out.println(message);
         System.out.println(byteVar + " " + octalInt + " " + hexFloat + " " + unicodeChar);
 
 /*
-multiline coment 1
+multiline comment 1
 */
         for (int i = 0; i < 10; i++) {
             if (i == 2) continue;
@@ -43,6 +44,6 @@ multiline coment 1
     }
 }
 
-// coment 3
+// comment 3
 
 

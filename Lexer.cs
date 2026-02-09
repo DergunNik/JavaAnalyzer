@@ -39,16 +39,17 @@ namespace JavaTranslator
         {
             SkipWhitespaceAndComments();
 
-            int start = _position;
-            bool isFromNewLine = _atLineStart;
+            var start = _position;
+            var isFromNewLine = _atLineStart;
 
             if (IsEOF)
             {
                 return new Token(TokenKind.EOF, string.Empty, _position, isFromNewLine);
             }
 
-            char c = Peek();
+            var c = Peek();
 
+            // идентификаторы и ключевые слова (true, false, null)
             if (IsIdentifierStart(c))
             {
                 var sb = new StringBuilder();
@@ -56,41 +57,59 @@ namespace JavaTranslator
                 while (!IsEOF && IsIdentifierPart(Peek()))
                     sb.Append(Next());
 
-                string val = sb.ToString();
+                var val = sb.ToString();
+
                 if (Keywords.IsKeyword(val))
                     return new Token(TokenKind.KEYWORD, val, start, isFromNewLine);
+
                 if (Keywords.IsLiteral(val))
-                    return new Token(TokenKind.LITERAL, val, start, isFromNewLine);
+                {
+                    Type literalType = val switch
+                    {
+                        "true" or "false" => typeof(bool),
+                        "null" => typeof(JavaNullType),
+                        _ => typeof(object)
+                    };
+                    return new LiteralToken(TokenKind.LITERAL, val, start, isFromNewLine, literalType);
+                }
+
                 return new Token(TokenKind.IDENTIFIER, val, start, isFromNewLine);
             }
 
+            // числовые литералы
             if (char.IsDigit(c))
             {
-                string num = ReadNumberLiteral();
-                return new Token(TokenKind.LITERAL, num, start, isFromNewLine);
+                var numStr = ReadNumberLiteral();
+                var numType = DetermineNumberType(numStr);
+                return new LiteralToken(TokenKind.LITERAL, numStr, start, isFromNewLine, numType);
             }
 
+            // cтроковые литералы
             if (c == '"')
             {
-                string str = ReadStringLiteral();
+                var str = ReadStringLiteral();
                 if (str == null)
                     return new Token(TokenKind.ERROR, "Unterminated string literal", start, isFromNewLine);
-                return new Token(TokenKind.LITERAL, str, start, isFromNewLine);
+                
+                return new LiteralToken(TokenKind.LITERAL, str, start, isFromNewLine, typeof(string));
             }
 
+            // cимвольные литералы
             if (c == '\'')
             {
-                string ch = ReadCharLiteral();
-                if (ch == null)
+                var chStr = ReadCharLiteral();
+                if (chStr == null)
                     return new Token(TokenKind.ERROR, "Unterminated char literal", start, isFromNewLine);
-                return new Token(TokenKind.LITERAL, ch, start, isFromNewLine);
+
+                return new LiteralToken(TokenKind.LITERAL, chStr, start, isFromNewLine, typeof(char));
             }
 
-            int remain = _inputText.Length - _position;
-            int maxTry = Math.Min(MaxOperatorLen, remain);
-            for (int len = maxTry; len > 0; len--)
+            // операторы
+            var remain = _inputText.Length - _position;
+            var maxTry = Math.Min(MaxOperatorLen, remain);
+            for (var len = maxTry; len > 0; len--)
             {
-                string candidate = _inputText.Substring(_position, len);
+                var candidate = _inputText.Substring(_position, len);
                 if (Keywords.IsOperator(candidate))
                 {
                     _position += len;
@@ -99,10 +118,11 @@ namespace JavaTranslator
                 }
             }
 
+            // разделители
             maxTry = Math.Min(MaxSeparatorLen, remain);
-            for (int len = maxTry; len > 0; len--)
+            for (var len = maxTry; len > 0; len--)
             {
-                string candidate = _inputText.Substring(_position, len);
+                var candidate = _inputText.Substring(_position, len);
                 if (Keywords.IsSeparator(candidate))
                 {
                     _position += len;
@@ -111,10 +131,40 @@ namespace JavaTranslator
                 }
             }
 
-            char bad = Next();
+            var bad = Next();
             _atLineStart = false;
             return new Token(TokenKind.ERROR, bad.ToString(), start, isFromNewLine);
         }
+
+        #region Type Helpers
+        
+        private static Type DetermineNumberType(string literal)
+        {
+            if (string.IsNullOrEmpty(literal)) return typeof(int);
+
+            char last = char.ToLowerInvariant(literal[^1]);
+
+            bool isHex = literal.Length > 2 && literal.StartsWith("0x", StringComparison.OrdinalIgnoreCase);
+            
+            if (isHex && (literal.Contains('p') || literal.Contains('P')))
+            {
+                if (last == 'f') return typeof(float);
+                return typeof(double);
+            }
+
+            if (last == 'l') return typeof(long);
+            if (last == 'f') return typeof(float);
+            if (last == 'd') return typeof(double);
+
+            if (literal.Contains('.') || literal.Contains('e') || literal.Contains('E'))
+            {
+                return typeof(double);
+            }
+
+            return typeof(int);
+        }
+
+        #endregion
 
         #region Helpers
 
@@ -122,7 +172,7 @@ namespace JavaTranslator
 
         private char Peek(int lookahead = 0)
         {
-            int pos = _position + lookahead;
+            var pos = _position + lookahead;
             return pos >= _inputText.Length ? '\0' : _inputText[pos];
         }
 
@@ -134,17 +184,17 @@ namespace JavaTranslator
 
         private void SkipWhitespaceAndComments()
         {
-            bool sawNewline = false;
+            var sawNewline = false;
             while (!IsEOF)
             {
-                char c = Peek();
-                if (c == ' ' || c == '\t' || c == '\f' || c == '\v')
+                var c = Peek();
+                if (c is ' ' or '\t' or '\f' or '\v')
                 {
                     Next();
                     continue;
                 }
 
-                if (c == '\r' || c == '\n')
+                if (c is '\r' or '\n')
                 {
                     sawNewline = true;
                     if (c == '\r')
@@ -209,23 +259,23 @@ namespace JavaTranslator
 
         private static bool IsIdentifierStart(char c)
         {
-            if (c == '_' || c == '$') return true;
+            if (c is '_' or '$') return true;
             return char.IsLetter(c);
         }
 
         private static bool IsIdentifierPart(char c)
         {
-            if (c == '_' || c == '$') return true;
+            if (c is '_' or '$') return true;
             return char.IsLetterOrDigit(c);
         }
 
         private string ReadNumberLiteral()
         {
-            int start = _position;
+            var start = _position;
 
             bool ConsumeDigitsAllowUnderscore(Func<char, bool> isDigit)
             {
-                bool sawDigit = false;
+                var sawDigit = false;
                 while (!IsEOF)
                 {
                     if (isDigit(Peek()))
@@ -248,12 +298,11 @@ namespace JavaTranslator
             {
                 Next(); Next();
                 ConsumeDigitsAllowUnderscore(IsHexDigit);
-                bool hasFraction = false;
+                
                 if (Peek() == '.')
                 {
                     if (IsHexDigit(Peek(1)) || Peek(1) == '_')
                     {
-                        hasFraction = true;
                         Next();
                         ConsumeDigitsAllowUnderscore(IsHexDigit);
                     }
@@ -279,19 +328,17 @@ namespace JavaTranslator
             if (Peek() == '0' && (Peek(1) == 'b' || Peek(1) == 'B'))
             {
                 Next(); Next();
-                ConsumeDigitsAllowUnderscore(ch => ch == '0' || ch == '1');
+                ConsumeDigitsAllowUnderscore(ch => ch is '0' or '1');
                 if (!IsEOF && (Peek() == 'l' || Peek() == 'L')) Next();
                 return _inputText.Substring(start, _position - start);
             }
 
             ConsumeDigitsAllowUnderscore(char.IsDigit);
 
-            bool seenDecimalPoint = false;
             if (Peek() == '.')
             {
                 if (char.IsDigit(Peek(1)))
                 {
-                    seenDecimalPoint = true;
                     Next();
                     ConsumeDigitsAllowUnderscore(char.IsDigit);
                 }
@@ -299,24 +346,20 @@ namespace JavaTranslator
 
             if (Peek() == 'e' || Peek() == 'E')
             {
-                int save = _position;
+                var save = _position;
                 Next(); // e/E
                 if (Peek() == '+' || Peek() == '-') Next();
-                bool expDigits = ConsumeDigitsAllowUnderscore(char.IsDigit);
+                var expDigits = ConsumeDigitsAllowUnderscore(char.IsDigit);
                 if (!expDigits)
                 {
                     _position = save;
-                }
-                else
-                {
-                    // exponent ok
                 }
             }
 
             if (!IsEOF)
             {
-                char s = Peek();
-                if (s == 'f' || s == 'F' || s == 'd' || s == 'D' || s == 'l' || s == 'L')
+                var s = Peek();
+                if (s is 'f' or 'F' or 'd' or 'D' or 'l' or 'L')
                     Next();
             }
 
@@ -325,19 +368,17 @@ namespace JavaTranslator
 
         private static bool IsHexDigit(char c)
         {
-            return (c >= '0' && c <= '9') ||
-                   (c >= 'a' && c <= 'f') ||
-                   (c >= 'A' && c <= 'F');
+            return c is >= '0' and <= '9' or >= 'a' and <= 'f' or >= 'A' and <= 'F';
         }
 
         private string ReadStringLiteral()
         {
             var sb = new StringBuilder();
-            char open = Next();
+            var open = Next();
             sb.Append(open);
             while (!IsEOF)
             {
-                char c = Next();
+                var c = Next();
                 sb.Append(c);
                 if (c == '\\')
                 {
@@ -346,15 +387,15 @@ namespace JavaTranslator
                         if (Peek() == 'u')
                         {
                             while (Peek() == 'u') sb.Append(Next());
-                            for (int i = 0; i < 4 && !IsEOF; i++)
+                            for (var i = 0; i < 4 && !IsEOF; i++)
                             {
-                                char hx = Next();
+                                var hx = Next();
                                 sb.Append(hx);
                             }
                         }
                         else
                         {
-                            char esc = Next();
+                            var esc = Next();
                             sb.Append(esc);
                         }
                     }
@@ -362,7 +403,7 @@ namespace JavaTranslator
                 }
                 if (c == '"')
                     return sb.ToString();
-                if (c == '\r' || c == '\n')
+                if (c is '\r' or '\n')
                     return null;
             }
             return null;
@@ -371,11 +412,11 @@ namespace JavaTranslator
         private string ReadCharLiteral()
         {
             var sb = new StringBuilder();
-            char open = Next();
+            var open = Next();
             sb.Append(open);
             if (IsEOF) return null;
 
-            char first = Next();
+            var first = Next();
             sb.Append(first);
             if (first == '\\')
             {
@@ -386,25 +427,33 @@ namespace JavaTranslator
                     {
                         sb.Append(Next());
                     }
-                    for (int i = 0; i < 4; i++)
+                    for (var i = 0; i < 4; i++)
                     {
                         if (IsEOF) return null;
-                        char hx = Next();
+                        var hx = Next();
                         sb.Append(hx);
                     }
                 }
                 else
                 {
-                    char esc = Next();
+                    var esc = Next();
                     sb.Append(esc);
                 }
             }
+            else if (first == '\'') 
+            {
+                 return null; 
+            }
 
             if (IsEOF) return null;
-            char closing = Next();
-            sb.Append(closing);
-            if (closing != '\'') return null;
-            return sb.ToString();
+            
+            if (Peek() == '\'')
+            {
+                sb.Append(Next());
+                return sb.ToString();
+            }
+            
+            return null;
         }
 
         #endregion
