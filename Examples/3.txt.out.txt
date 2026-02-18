@@ -1,0 +1,225 @@
+﻿
+1	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(ArrayList)SEP(;)
+2	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(HashMap)SEP(;)
+3	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(Map)SEP(;)
+4	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(Scanner)SEP(;)
+5	KEY(public)KEY(class)ID(Program3)SEP({)
+6	KEY(public)KEY(static)KEY(void)ID(main)SEP(()ID(String)SEP([)SEP(])ID(args)SEP())SEP({)
+7	ID(Scanner)ID(scanner)OP(=)KEY(new)ID(Scanner)SEP(()ID(System)OP(.)ID(in)SEP())SEP(;)
+8	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()LIT("Введите строку (или пусто для null): ", String)SEP())SEP(;)
+9	ID(String)ID(input)OP(=)ID(scanner)OP(.)ID(nextLine)SEP(()SEP())SEP(;)
+10	ID(String)ID(emptyRef)OP(=)ID(input)OP(.)ID(isEmpty)SEP(()SEP())OP(?)LIT(null, null)OP(:)ID(input)SEP(;)
+11	ID(String)ID(header)OP(=)LIT("""
+                Data Structures
+                List and Map
+                """, String)SEP(;)
+12	KEY(if)SEP(()ID(emptyRef)OP(==)LIT(null, null)SEP())SEP({)
+13	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(header)SEP())SEP(;)
+14	SEP(})
+15	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()LIT("Введите 3 числа: ", String)SEP())SEP(;)
+16	KEY(int)SEP([)SEP(])ID(numbers)OP(=)KEY(new)KEY(int)SEP([)LIT(3, int)SEP(])SEP(;)
+17	KEY(for)SEP(()KEY(int)ID(i)OP(=)LIT(0, int)SEP(;)ID(i)OP(<)ID(numbers)OP(.)ID(length)SEP(;)ID(i)OP(++)SEP())SEP({)
+18	ID(numbers)SEP([)ID(i)SEP(])OP(=)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP(;)
+19	SEP(})
+20	ID(scanner)OP(.)ID(nextLine)SEP(()SEP())SEP(;)
+21	KEY(for)SEP(()KEY(int)ID(num)OP(:)ID(numbers)SEP())SEP({)
+22	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()ID(num)OP(+)LIT(" ", String)SEP())SEP(;)
+23	SEP(})
+24	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()SEP())SEP(;)
+25	ID(var)ID(list)OP(=)KEY(new)ID(ArrayList)OP(<)ID(String)OP(>)SEP(()SEP())SEP(;)
+26	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()LIT("Введите два языка: ", String)SEP())SEP(;)
+27	ID(list)OP(.)ID(add)SEP(()ID(scanner)OP(.)ID(next)SEP(()SEP())SEP())SEP(;)
+28	ID(list)OP(.)ID(add)SEP(()ID(scanner)OP(.)ID(next)SEP(()SEP())SEP())SEP(;)
+29	ID(scanner)OP(.)ID(nextLine)SEP(()SEP())SEP(;)
+30	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(list)SEP())SEP(;)
+31	ID(var)ID(ages)OP(=)KEY(new)ID(HashMap)OP(<)ID(String)SEP(,)ID(Integer)OP(>)SEP(()SEP())SEP(;)
+32	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()LIT("Введите имя и возраст: ", String)SEP())SEP(;)
+33	ID(ages)OP(.)ID(put)SEP(()ID(scanner)OP(.)ID(next)SEP(()SEP())SEP(,)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP())SEP(;)
+34	ID(scanner)OP(.)ID(nextLine)SEP(()SEP())SEP(;)
+35	KEY(for)SEP(()ID(Map)OP(.)ID(Entry)OP(<)ID(String)SEP(,)ID(Integer)OP(>)ID(entry)OP(:)ID(ages)OP(.)ID(entrySet)SEP(()SEP())SEP())SEP({)
+36	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(entry)OP(.)ID(getKey)SEP(()SEP())OP(+)LIT(": ", String)OP(+)ID(entry)OP(.)ID(getValue)SEP(()SEP())SEP())SEP(;)
+37	SEP(})
+38	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()LIT("Введите два числа для суммы: ", String)SEP())SEP(;)
+39	KEY(int)ID(a)OP(=)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP(;)
+40	KEY(int)ID(b)OP(=)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP(;)
+41	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(calculateSum)SEP(()ID(a)SEP(,)ID(b)SEP())SEP())SEP(;)
+42	SEP(})
+43	KEY(public)KEY(static)KEY(int)ID(calculateSum)SEP(()KEY(int)ID(a)SEP(,)KEY(int)ID(b)SEP())SEP({)
+44	KEY(return)ID(a)OP(+)ID(b)SEP(;)
+45	SEP(})
+46	SEP(})
+47	EOF
+
+
+Stats
+
+
+EOF
+============================================================
+i	cnt	val
+============================================================
+1	1	
+============================================================
+
+IDENTIFIER
+============================================================
+i	cnt	val
+============================================================
+1	2	emptyRef
+2	2	HashMap
+3	3	ages
+4	2	var
+5	12	System
+6	4	list
+7	7	String
+8	11	out
+9	5	println
+10	2	header
+11	4	nextLine
+12	12	scanner
+13	2	Integer
+14	4	nextInt
+15	3	input
+16	1	isEmpty
+17	3	next
+18	1	put
+19	6	print
+20	2	num
+21	4	i
+22	4	numbers
+23	1	length
+24	2	add
+25	2	ArrayList
+26	2	Map
+27	1	main
+28	4	b
+29	1	Program3
+30	3	Scanner
+31	2	calculateSum
+32	4	util
+33	4	a
+34	4	java
+35	1	args
+36	3	entry
+37	1	entrySet
+38	1	in
+39	1	Entry
+40	1	getKey
+41	1	getValue
+============================================================
+
+KEYWORD
+============================================================
+i	cnt	val
+============================================================
+1	3	for
+2	1	return
+3	9	int
+4	2	static
+5	3	public
+6	4	new
+7	4	import
+8	1	class
+9	1	void
+10	1	if
+============================================================
+
+LITERAL
+============================================================
+i	cnt	val
+============================================================
+1	1	(" ", String)
+2	1	(": ", String)
+3	1	("Введите имя и возраст: ", String)
+4	1	("Введите два числа для суммы: ", String)
+5	1	(0, int)
+6	1	("""
+                Data Structures
+                List and Map
+                """, String)
+7	1	("Введите 3 числа: ", String)
+8	1	(3, int)
+9	2	(null, null)
+10	1	("Введите строку (или пусто для null): ", String)
+11	1	("Введите два языка: ", String)
+============================================================
+
+OPERATOR
+============================================================
+i	cnt	val
+============================================================
+1	51	.
+2	11	=
+3	1	?
+4	4	<
+5	3	:
+6	3	>
+7	1	==
+8	4	+
+9	1	++
+============================================================
+
+SEPARATOR
+============================================================
+i	cnt	val
+============================================================
+1	4	]
+2	34	;
+3	39	(
+4	39	)
+5	4	[
+6	7	{
+7	7	}
+8	5	,
+============================================================
+
+
+Lexemes
+============================================================
+import <ИД1> . <ИД2> . <ИД3> ; 
+import <ИД1> . <ИД2> . <ИД4> ; 
+import <ИД1> . <ИД2> . <ИД5> ; 
+import <ИД1> . <ИД2> . <ИД6> ; 
+public class <ИД7> { 
+public static void <ИД8> ( <ИД9> [ ] <ИД10> ) { 
+<ИД6> <ИД11> = new <ИД6> ( <ИД12> . <ИД13> ) ; 
+<ИД12> . <ИД14> . <ИД15> ( <ИД16> ) ; 
+<ИД9> <ИД17> = <ИД11> . <ИД18> ( ) ; 
+<ИД9> <ИД19> = <ИД17> . <ИД20> ( ) ? <ИД21> : <ИД17> ; 
+<ИД9> <ИД22> = <ИД23> ; 
+if ( <ИД19> == <ИД21> ) { 
+<ИД12> . <ИД14> . <ИД24> ( <ИД22> ) ; 
+} 
+<ИД12> . <ИД14> . <ИД15> ( <ИД25> ) ; 
+int [ ] <ИД26> = new int [ <ИД27> ] ; 
+for ( int <ИД28> = <ИД29> ; <ИД28> < <ИД26> . <ИД30> ; <ИД28> ++ ) { 
+<ИД26> [ <ИД28> ] = <ИД11> . <ИД31> ( ) ; 
+} 
+<ИД11> . <ИД18> ( ) ; 
+for ( int <ИД32> : <ИД26> ) { 
+<ИД12> . <ИД14> . <ИД15> ( <ИД32> + <ИД33> ) ; 
+} 
+<ИД12> . <ИД14> . <ИД24> ( ) ; 
+<ИД34> <ИД35> = new <ИД3> < <ИД9> > ( ) ; 
+<ИД12> . <ИД14> . <ИД15> ( <ИД36> ) ; 
+<ИД35> . <ИД37> ( <ИД11> . <ИД38> ( ) ) ; 
+<ИД35> . <ИД37> ( <ИД11> . <ИД38> ( ) ) ; 
+<ИД11> . <ИД18> ( ) ; 
+<ИД12> . <ИД14> . <ИД24> ( <ИД35> ) ; 
+<ИД34> <ИД39> = new <ИД4> < <ИД9> , <ИД40> > ( ) ; 
+<ИД12> . <ИД14> . <ИД15> ( <ИД41> ) ; 
+<ИД39> . <ИД42> ( <ИД11> . <ИД38> ( ) , <ИД11> . <ИД31> ( ) ) ; 
+<ИД11> . <ИД18> ( ) ; 
+for ( <ИД5> . <ИД43> < <ИД9> , <ИД40> > <ИД44> : <ИД39> . <ИД45> ( ) ) { 
+<ИД12> . <ИД14> . <ИД24> ( <ИД44> . <ИД46> ( ) + <ИД47> + <ИД44> . <ИД48> ( ) ) ; 
+} 
+<ИД12> . <ИД14> . <ИД15> ( <ИД49> ) ; 
+int <ИД50> = <ИД11> . <ИД31> ( ) ; 
+int <ИД51> = <ИД11> . <ИД31> ( ) ; 
+<ИД12> . <ИД14> . <ИД24> ( <ИД52> ( <ИД50> , <ИД51> ) ) ; 
+} 
+public static int <ИД52> ( int <ИД50> , int <ИД51> ) { 
+return <ИД50> + <ИД51> ; 
+} 
+} 
+============================================================

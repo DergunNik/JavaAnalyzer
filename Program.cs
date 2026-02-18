@@ -1,86 +1,22 @@
 ﻿using JavaTranslator;
 using JavaTranslator.Tokens;
 using JavaTranslator.Utils;
+using System.Text;
 
-var inputText = FileReader.Read();
+var (inputFileName, inputText) = FileReader.Read();
+var outputFileName = inputFileName + ".out.txt";
 
 var lexer = new Lexer(inputText);
-List<Token> tokens = [];
+List<Token> tokens = new();
 Token token;
+
 do
 {
     token = lexer.NextToken();
     tokens.Add(token);
 } while (token.Kind != TokenKind.EOF);
 
-var lineCnt = 1;
-foreach (var t in tokens)
-{
-    if (t.IsFromNewLine)
-    {
-        Console.Write($"\n{lineCnt++}\t");
-    }
+var processor = new LexerResultProcessor(writeToConsole: true);
+var finalResult = processor.Process(tokens);
 
-    if (t.Kind == TokenKind.ERROR)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(t.ToString());
-        Console.ResetColor();
-    } else
-    {
-        Console.Write(t.ToString());
-    }
-}
-
-if (tokens.Count == 0) return;
-
-const string SeparatorLine = "====================";
-
-Console.WriteLine();
-Console.WriteLine();
-Console.WriteLine();
-Console.WriteLine("Stats");
-Console.WriteLine();
-Console.WriteLine();
-
-tokens.Sort((a, b) => a.Kind.CompareTo(b.Kind));
-var curKind =  tokens[0].Kind;
-List<Token> curList = [];
-
-foreach (var t in tokens)
-{
-    if (curKind != t.Kind)
-    {
-        PrintTokenTypeList();
-        curList = [t];
-        curKind = t.Kind;
-    } else
-    {
-        curList.Add(t);
-    }
-}
-PrintTokenTypeList();
-
-void PrintTokenTypeList()
-{
-    IEnumerable<KeyValuePair<string, int>> cntDict;
-    if (curKind == TokenKind.LITERAL)
-    {
-        cntDict = curList.CountBy(t => t.ToString()[7..]);
-    }
-    else
-    {
-        cntDict = curList.CountBy(t => t.Value);
-    }
-    var i = 1;
-    Console.WriteLine(curKind.ToString());
-    Console.WriteLine(SeparatorLine);
-    Console.WriteLine("i\tcnt\tval");
-    Console.WriteLine(SeparatorLine);
-    foreach (var p in cntDict)
-    {
-        Console.WriteLine($"{i++}\t{p.Value}\t{p.Key}");
-    }
-    Console.WriteLine(SeparatorLine);
-    Console.WriteLine();
-}
+File.WriteAllText(outputFileName, finalResult, Encoding.UTF8);

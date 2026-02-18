@@ -83,16 +83,26 @@ namespace JavaTranslator
                 var numType = DetermineNumberType(numStr);
                 return new LiteralToken(TokenKind.LITERAL, numStr, start, isFromNewLine, numType);
             }
-
-            // cтроковые литералы
+            
+            // строковые литералы и текстовые блоки
             if (c == '"')
             {
+                if (Peek(1) == '"' && Peek(2) == '"')
+                {
+                    var tb = ReadTextBlock();
+                    if (tb == null)
+                        return new Token(TokenKind.ERROR, "Unterminated text block", start, isFromNewLine);
+
+                    return new LiteralToken(TokenKind.LITERAL, tb, start, isFromNewLine, typeof(string));
+                }
+
                 var str = ReadStringLiteral();
                 if (str == null)
                     return new Token(TokenKind.ERROR, "Unterminated string literal", start, isFromNewLine);
-                
+
                 return new LiteralToken(TokenKind.LITERAL, str, start, isFromNewLine, typeof(string));
             }
+
 
             // cимвольные литералы
             if (c == '\'')
@@ -136,7 +146,7 @@ namespace JavaTranslator
             return new Token(TokenKind.ERROR, bad.ToString(), start, isFromNewLine);
         }
 
-        #region Type Helpers
+        #region TypeHelpers
         
         private static Type DetermineNumberType(string literal)
         {
@@ -453,6 +463,30 @@ namespace JavaTranslator
                 return sb.ToString();
             }
             
+            return null;
+        }
+        
+        private string ReadTextBlock()
+        {
+            var sb = new StringBuilder();
+            sb.Append(Next()); sb.Append(Next()); sb.Append(Next());
+
+            while (!IsEOF)
+            {
+                var c = Next();
+                sb.Append(c);
+
+                if (c == '"')
+                {
+                    if (Peek() == '"' && Peek(1) == '"')
+                    {
+                        sb.Append(Next());
+                        sb.Append(Next());
+                        return sb.ToString();
+                    }
+                }
+            }
+
             return null;
         }
 

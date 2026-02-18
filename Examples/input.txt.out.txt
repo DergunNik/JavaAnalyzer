@@ -1,0 +1,207 @@
+﻿
+1	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(Scanner)SEP(;)
+2	KEY(public)KEY(class)ID(Program1)SEP({)
+3	KEY(public)KEY(static)KEY(void)ID(main)SEP(()ID(String)SEP([)SEP(])ID(args)SEP())SEP({)
+4	KEY(byte)ID(byteVar)OP(=)LIT(10, int)SEP(;)
+5	KEY(short)ID(shortVar)OP(=)LIT(100, int)SEP(;)
+6	KEY(int)ID(decimalInt)OP(=)LIT(42, int)SEP(;)
+7	KEY(int)ID(octalInt)OP(=)LIT(010, int)SEP(;)
+8	KEY(int)ID(hexInt)OP(=)LIT(0x2A, int)SEP(;)
+9	KEY(int)ID(binInt)OP(=)LIT(0b101010, int)SEP(;)
+10	KEY(long)ID(longVar)OP(=)LIT(1_000_000L, long)SEP(;)
+11	KEY(double)ID(doubleVar)OP(=)LIT(3.14, double)SEP(;)
+12	KEY(double)ID(sciVar)OP(=)LIT(1.2e3, double)SEP(;)
+13	KEY(double)ID(hexFloat)OP(=)LIT(0x1.0p2, double)SEP(;)
+14	KEY(float)ID(floatVar)OP(=)LIT(2.5f, float)SEP(;)
+15	KEY(char)ID(charVar)OP(=)LIT('J', char)SEP(;)
+16	KEY(char)ID(unicodeChar)OP(=)LIT('\u0041', char)SEP(;)
+17	KEY(boolean)ID(boolVar)OP(=)LIT(true, boolean)SEP(;)
+18	ID(var)ID(message)OP(=)LIT("Типы данных и литералы", String)SEP(;)
+19	ID(var)ID(nullVar)OP(=)LIT(null, null)SEP(;)
+20	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(message)SEP())SEP(;)
+21	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(byteVar)OP(+)LIT(" ", String)OP(+)ID(octalInt)OP(+)LIT(" ", String)OP(+)ID(hexFloat)OP(+)LIT(" ", String)OP(+)ID(unicodeChar)SEP())SEP(;)
+22	KEY(for)SEP(()KEY(int)ID(i)OP(=)LIT(0, int)SEP(;)ID(i)OP(<)LIT(10, int)SEP(;)ID(i)OP(++)SEP())SEP({)
+23	KEY(if)SEP(()ID(i)OP(==)LIT(2, int)SEP())KEY(continue)SEP(;)
+24	KEY(if)SEP(()ID(i)OP(==)LIT(5, int)SEP())KEY(break)SEP(;)
+25	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(i)SEP())SEP(;)
+26	SEP(})
+27	KEY(int)ID(j)OP(=)LIT(0, int)SEP(;)
+28	KEY(while)SEP(()ID(j)OP(<)LIT(2, int)SEP())SEP({)
+29	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(j)SEP())SEP(;)
+30	ID(j)OP(++)SEP(;)
+31	SEP(})
+32	KEY(int)ID(k)OP(=)LIT(0, int)SEP(;)
+33	KEY(do)SEP({)
+34	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(k)SEP())SEP(;)
+35	ID(k)OP(++)SEP(;)
+36	SEP(})KEY(while)SEP(()ID(k)OP(<)LIT(1, int)SEP())SEP(;)
+37	SEP(})
+38	SEP(})
+39	EOF
+
+
+Stats
+
+
+EOF
+============================================================
+i	cnt	val
+============================================================
+1	1	
+============================================================
+
+IDENTIFIER
+============================================================
+i	cnt	val
+============================================================
+1	2	hexFloat
+2	2	octalInt
+3	2	byteVar
+4	5	println
+5	5	System
+6	2	message
+7	5	out
+8	2	unicodeChar
+9	1	nullVar
+10	2	var
+11	1	boolVar
+12	1	charVar
+13	1	floatVar
+14	1	sciVar
+15	1	doubleVar
+16	1	longVar
+17	6	i
+18	4	k
+19	4	j
+20	1	binInt
+21	1	String
+22	1	shortVar
+23	1	args
+24	1	main
+25	1	hexInt
+26	1	Program1
+27	1	decimalInt
+28	1	java
+29	1	Scanner
+30	1	util
+============================================================
+
+KEYWORD
+============================================================
+i	cnt	val
+============================================================
+1	3	double
+2	2	char
+3	2	if
+4	1	continue
+5	1	byte
+6	2	while
+7	7	int
+8	1	for
+9	1	short
+10	1	boolean
+11	1	break
+12	1	long
+13	2	public
+14	1	class
+15	1	do
+16	1	static
+17	1	float
+18	1	import
+19	1	void
+============================================================
+
+LITERAL
+============================================================
+i	cnt	val
+============================================================
+1	2	(2, int)
+2	3	(0, int)
+3	1	(5, int)
+4	2	(10, int)
+5	3	(" ", String)
+6	1	(1, int)
+7	1	(100, int)
+8	1	(1.2e3, double)
+9	1	(true, boolean)
+10	1	(1_000_000L, long)
+11	1	('J', char)
+12	1	("Типы данных и литералы", String)
+13	1	(010, int)
+14	1	(0x2A, int)
+15	1	(42, int)
+16	1	(0b101010, int)
+17	1	(2.5f, float)
+18	1	('\u0041', char)
+19	1	(3.14, double)
+20	1	(0x1.0p2, double)
+21	1	(null, null)
+============================================================
+
+OPERATOR
+============================================================
+i	cnt	val
+============================================================
+1	12	.
+2	19	=
+3	2	==
+4	3	<
+5	3	++
+6	6	+
+============================================================
+
+SEPARATOR
+============================================================
+i	cnt	val
+============================================================
+1	5	{
+2	11	)
+3	31	;
+4	5	}
+5	11	(
+6	1	[
+7	1	]
+============================================================
+
+
+Lexemes
+============================================================
+import <ИД1> . <ИД2> . <ИД3> ; 
+public class <ИД4> { 
+public static void <ИД5> ( <ИД6> [ ] <ИД7> ) { 
+byte <ИД8> = <ИД9> ; 
+short <ИД10> = <ИД11> ; 
+int <ИД12> = <ИД13> ; 
+int <ИД14> = <ИД15> ; 
+int <ИД16> = <ИД17> ; 
+int <ИД18> = <ИД19> ; 
+long <ИД20> = <ИД21> ; 
+double <ИД22> = <ИД23> ; 
+double <ИД24> = <ИД25> ; 
+double <ИД26> = <ИД27> ; 
+float <ИД28> = <ИД29> ; 
+char <ИД30> = <ИД31> ; 
+char <ИД32> = <ИД33> ; 
+boolean <ИД34> = <ИД35> ; 
+<ИД36> <ИД37> = <ИД38> ; 
+<ИД36> <ИД39> = <ИД40> ; 
+<ИД41> . <ИД42> . <ИД43> ( <ИД37> ) ; 
+<ИД41> . <ИД42> . <ИД43> ( <ИД8> + <ИД44> + <ИД14> + <ИД44> + <ИД26> + <ИД44> + <ИД32> ) ; 
+for ( int <ИД45> = <ИД46> ; <ИД45> < <ИД9> ; <ИД45> ++ ) { 
+if ( <ИД45> == <ИД47> ) continue ; 
+if ( <ИД45> == <ИД48> ) break ; 
+<ИД41> . <ИД42> . <ИД43> ( <ИД45> ) ; 
+} 
+int <ИД49> = <ИД46> ; 
+while ( <ИД49> < <ИД47> ) { 
+<ИД41> . <ИД42> . <ИД43> ( <ИД49> ) ; 
+<ИД49> ++ ; 
+} 
+int <ИД50> = <ИД46> ; 
+do { 
+<ИД41> . <ИД42> . <ИД43> ( <ИД50> ) ; 
+<ИД50> ++ ; 
+} while ( <ИД50> < <ИД51> ) ; 
+} 
+} 
+============================================================

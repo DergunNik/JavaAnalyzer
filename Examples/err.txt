@@ -1,0 +1,6 @@
+﻿char emptyChar = '';
+char longChar = 'abc';
+String superString = """"
+Hello world
+"""";
+₽int a = 1;

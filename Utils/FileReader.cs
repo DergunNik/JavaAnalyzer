@@ -6,9 +6,9 @@ namespace JavaTranslator.Utils;
 
 internal static class FileReader
 {
-    public const string DirPath = """C:\Projects\C#\JavaTranslator\Input\""";
+    private const string DirPath = """C:\Projects\C#\JavaTranslator\Examples\""";
 
-    public static string Read()
+    public static (string fileName, string fileContent) Read()
     {
         do
         {
@@ -17,7 +17,7 @@ internal static class FileReader
             var fileName = Path.Combine(DirPath, input ?? "");
             if (File.Exists(fileName))
             {
-                return File.ReadAllText(fileName, Encoding.UTF8);
+                return (fileName, File.ReadAllText(fileName, Encoding.UTF8));
             }
             else
             {

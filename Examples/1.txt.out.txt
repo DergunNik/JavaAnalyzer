@@ -1,0 +1,245 @@
+﻿
+1	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(Scanner)SEP(;)
+2	KEY(public)KEY(class)ID(Program1)SEP({)
+3	KEY(public)KEY(static)KEY(void)ID(main)SEP(()ID(String)SEP([)SEP(])ID(args)SEP())SEP({)
+4	ID(Scanner)ID(scanner)OP(=)KEY(new)ID(Scanner)SEP(()ID(System)OP(.)ID(in)SEP())SEP(;)
+5	KEY(byte)ID(workHoursPerDay)OP(=)LIT(8, int)SEP(;)
+6	KEY(short)ID(hourlyRate)OP(=)LIT(100, int)SEP(;)
+7	KEY(int)ID(baseSalary)OP(=)LIT(0, int)SEP(;)
+8	KEY(int)ID(octalBonus)OP(=)LIT(010, int)SEP(;)
+9	KEY(int)ID(hexBonus)OP(=)LIT(0x2A, int)SEP(;)
+10	KEY(int)ID(binBonus)OP(=)LIT(0b101010, int)SEP(;)
+11	KEY(long)ID(annualLimit)OP(=)LIT(1_000_000L, long)SEP(;)
+12	KEY(double)ID(taxRate)OP(=)LIT(0.13, double)SEP(;)
+13	KEY(double)ID(sciCoeff)OP(=)LIT(1.2e1, double)SEP(;)
+14	KEY(double)ID(hexCoeff)OP(=)LIT(0x1.0p1, double)SEP(;)
+15	KEY(float)ID(experienceCoeff)OP(=)LIT(1.1f, float)SEP(;)
+16	KEY(char)ID(currency)OP(=)LIT('₽', char)SEP(;)
+17	KEY(char)ID(unicodeChar)OP(=)LIT('\u0041', char)SEP(;)
+18	KEY(boolean)ID(hasBonus)OP(=)LIT(true, boolean)SEP(;)
+19	ID(var)ID(message)OP(=)LIT("Расчет заработной платы", String)SEP(;)
+20	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(message)SEP())SEP(;)
+21	ID(System)OP(.)ID(out)OP(.)ID(print)SEP(()LIT("Введите количество рабочих дней: ", String)SEP())SEP(;)
+22	KEY(int)ID(days)OP(=)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP(;)
+23	KEY(for)SEP(()KEY(int)ID(i)OP(=)LIT(1, int)SEP(;)ID(i)OP(<=)ID(days)SEP(;)ID(i)OP(++)SEP())SEP({)
+24	KEY(if)SEP(()ID(i)OP(%)LIT(7, int)OP(==)LIT(0, int)SEP())KEY(continue)SEP(;)
+25	KEY(if)SEP(()ID(i)OP(>)LIT(31, int)SEP())KEY(break)SEP(;)
+26	ID(baseSalary)OP(+=)ID(workHoursPerDay)OP(*)ID(hourlyRate)SEP(;)
+27	SEP(})
+28	KEY(if)SEP(()ID(hasBonus)SEP())SEP({)
+29	ID(baseSalary)OP(+=)ID(octalBonus)OP(+)ID(hexBonus)OP(+)ID(binBonus)SEP(;)
+30	SEP(})
+31	KEY(double)ID(grossSalary)OP(=)ID(baseSalary)OP(*)ID(experienceCoeff)OP(*)ID(sciCoeff)OP(*)ID(hexCoeff)SEP(;)
+32	KEY(double)ID(tax)OP(=)ID(grossSalary)OP(*)ID(taxRate)SEP(;)
+33	KEY(double)ID(netSalary)OP(=)ID(grossSalary)OP(-)ID(tax)SEP(;)
+34	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("Валовая зарплата: ", String)OP(+)ID(grossSalary)OP(+)LIT(" ", String)OP(+)ID(currency)SEP())SEP(;)
+35	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("Налог: ", String)OP(+)ID(tax)OP(+)LIT(" ", String)OP(+)ID(currency)SEP())SEP(;)
+36	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("К выплате: ", String)OP(+)ID(netSalary)OP(+)LIT(" ", String)OP(+)ID(currency)SEP())SEP(;)
+37	KEY(int)ID(j)OP(=)LIT(0, int)SEP(;)
+38	KEY(while)SEP(()ID(j)OP(<)LIT(2, int)SEP())SEP({)
+39	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("Проверка лимита: ", String)OP(+)SEP(()ID(netSalary)OP(<)ID(annualLimit)SEP())SEP())SEP(;)
+40	ID(j)OP(++)SEP(;)
+41	SEP(})
+42	KEY(int)ID(k)OP(=)LIT(0, int)SEP(;)
+43	KEY(do)SEP({)
+44	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("Символ отчета: ", String)OP(+)ID(unicodeChar)SEP())SEP(;)
+45	ID(k)OP(++)SEP(;)
+46	SEP(})KEY(while)SEP(()ID(k)OP(<)LIT(1, int)SEP())SEP(;)
+47	SEP(})
+48	SEP(})
+49	EOF
+
+
+Stats
+
+
+EOF
+============================================================
+i	cnt	val
+============================================================
+1	1	
+============================================================
+
+IDENTIFIER
+============================================================
+i	cnt	val
+============================================================
+1	1	java
+2	1	util
+3	3	Scanner
+4	1	Program1
+5	1	main
+6	1	String
+7	1	args
+8	2	scanner
+9	8	System
+10	1	in
+11	2	workHoursPerDay
+12	2	hourlyRate
+13	4	baseSalary
+14	2	octalBonus
+15	2	hexBonus
+16	2	binBonus
+17	2	annualLimit
+18	2	taxRate
+19	2	sciCoeff
+20	2	hexCoeff
+21	2	experienceCoeff
+22	4	currency
+23	2	unicodeChar
+24	2	hasBonus
+25	1	var
+26	2	message
+27	7	out
+28	6	println
+29	1	print
+30	2	days
+31	1	nextInt
+32	5	i
+33	4	grossSalary
+34	3	tax
+35	3	netSalary
+36	3	j
+37	3	k
+============================================================
+
+KEYWORD
+============================================================
+i	cnt	val
+============================================================
+1	1	import
+2	2	public
+3	1	class
+4	1	static
+5	1	void
+6	1	new
+7	1	byte
+8	1	short
+9	8	int
+10	1	long
+11	6	double
+12	1	float
+13	2	char
+14	1	boolean
+15	1	for
+16	3	if
+17	1	continue
+18	1	break
+19	2	while
+20	1	do
+============================================================
+
+LITERAL
+============================================================
+i	cnt	val
+============================================================
+1	1	(8, int)
+2	1	(100, int)
+3	4	(0, int)
+4	1	(010, int)
+5	1	(0x2A, int)
+6	1	(0b101010, int)
+7	1	(1_000_000L, long)
+8	1	(0.13, double)
+9	1	(1.2e1, double)
+10	1	(0x1.0p1, double)
+11	1	(1.1f, float)
+12	1	('₽', char)
+13	1	('\u0041', char)
+14	1	(true, boolean)
+15	1	("Расчет заработной платы", String)
+16	1	("Введите количество рабочих дней: ", String)
+17	2	(1, int)
+18	1	(7, int)
+19	1	(31, int)
+20	1	("Валовая зарплата: ", String)
+21	3	(" ", String)
+22	1	("Налог: ", String)
+23	1	("К выплате: ", String)
+24	1	(2, int)
+25	1	("Проверка лимита: ", String)
+26	1	("Символ отчета: ", String)
+============================================================
+
+OPERATOR
+============================================================
+i	cnt	val
+============================================================
+1	18	.
+2	23	=
+3	1	<=
+4	3	++
+5	1	%
+6	1	==
+7	1	>
+8	2	+=
+9	5	*
+10	13	+
+11	1	-
+12	3	<
+============================================================
+
+SEPARATOR
+============================================================
+i	cnt	val
+============================================================
+1	39	;
+2	6	{
+3	17	(
+4	1	[
+5	1	]
+6	17	)
+7	6	}
+============================================================
+
+Lexemes
+============================================================
+import <ИД1> . <ИД2> . <ИД3> ; 
+public class <ИД4> { 
+public static void <ИД5> ( <ИД6> [ ] <ИД7> ) { 
+<ИД3> <ИД8> = new <ИД3> ( <ИД9> . <ИД10> ) ; 
+byte <ИД11> = <ИД12> ; 
+short <ИД13> = <ИД14> ; 
+int <ИД15> = <ИД16> ; 
+int <ИД17> = <ИД18> ; 
+int <ИД19> = <ИД20> ; 
+int <ИД21> = <ИД22> ; 
+long <ИД23> = <ИД24> ; 
+double <ИД25> = <ИД26> ; 
+double <ИД27> = <ИД28> ; 
+double <ИД29> = <ИД30> ; 
+float <ИД31> = <ИД32> ; 
+char <ИД33> = <ИД34> ; 
+char <ИД35> = <ИД36> ; 
+boolean <ИД37> = <ИД38> ; 
+<ИД39> <ИД40> = <ИД41> ; 
+<ИД9> . <ИД42> . <ИД43> ( <ИД40> ) ; 
+<ИД9> . <ИД42> . <ИД44> ( <ИД45> ) ; 
+int <ИД46> = <ИД8> . <ИД47> ( ) ; 
+for ( int <ИД48> = <ИД49> ; <ИД48> <= <ИД46> ; <ИД48> ++ ) { 
+if ( <ИД48> % <ИД50> == <ИД16> ) continue ; 
+if ( <ИД48> > <ИД51> ) break ; 
+<ИД15> += <ИД11> * <ИД13> ; 
+} 
+if ( <ИД37> ) { 
+<ИД15> += <ИД17> + <ИД19> + <ИД21> ; 
+} 
+double <ИД52> = <ИД15> * <ИД31> * <ИД27> * <ИД29> ; 
+double <ИД53> = <ИД52> * <ИД25> ; 
+double <ИД54> = <ИД52> - <ИД53> ; 
+<ИД9> . <ИД42> . <ИД43> ( <ИД55> + <ИД52> + <ИД56> + <ИД33> ) ; 
+<ИД9> . <ИД42> . <ИД43> ( <ИД57> + <ИД53> + <ИД56> + <ИД33> ) ; 
+<ИД9> . <ИД42> . <ИД43> ( <ИД58> + <ИД54> + <ИД56> + <ИД33> ) ; 
+int <ИД59> = <ИД16> ; 
+while ( <ИД59> < <ИД60> ) { 
+<ИД9> . <ИД42> . <ИД43> ( <ИД61> + ( <ИД54> < <ИД23> ) ) ; 
+<ИД59> ++ ; 
+} 
+int <ИД62> = <ИД16> ; 
+do { 
+<ИД9> . <ИД42> . <ИД43> ( <ИД63> + <ИД35> ) ; 
+<ИД62> ++ ; 
+} while ( <ИД62> < <ИД49> ) ; 
+} 
+} 
+============================================================

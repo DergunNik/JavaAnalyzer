@@ -1,0 +1,61 @@
+﻿import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Program3 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введите строку (или пусто для null): ");
+        String input = scanner.nextLine();
+        String emptyRef = input.isEmpty() ? null : input;
+
+        String header = """
+                Data Structures
+                List and Map
+                """;
+
+        if (emptyRef == null) {
+            System.out.println(header);
+        }
+
+        System.out.print("Введите 3 числа: ");
+        int[] numbers = new int[3];
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = scanner.nextInt();
+        }
+        scanner.nextLine();
+
+        for (int num : numbers) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        var list = new ArrayList<String>();
+        System.out.print("Введите два языка: ");
+        list.add(scanner.next());
+        list.add(scanner.next());
+        scanner.nextLine();
+        System.out.println(list);
+
+        var ages = new HashMap<String, Integer>();
+        System.out.print("Введите имя и возраст: ");
+        ages.put(scanner.next(), scanner.nextInt());
+        scanner.nextLine();
+
+        for (Map.Entry<String, Integer> entry : ages.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        System.out.print("Введите два числа для суммы: ");
+        int a = scanner.nextInt();
+        int b = scanner.nextInt();
+
+        System.out.println(calculateSum(a, b));
+    }
+
+    public static int calculateSum(int a, int b) {
+        return a + b;
+    }
+}
