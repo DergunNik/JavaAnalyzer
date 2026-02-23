@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Globalization;
 using System.Text;
 using JavaTranslator.Tokens;
 
@@ -50,12 +49,14 @@ namespace JavaTranslator
             var c = Peek();
 
             // идентификаторы и ключевые слова (true, false, null)
-            if (IsIdentifierStart(c))
+            if (IsIdentifierStartAt(_position))
             {
                 var sb = new StringBuilder();
-                sb.Append(Next());
-                while (!IsEOF && IsIdentifierPart(Peek()))
-                    sb.Append(Next());
+                sb.Append(ReadRuneAsString());
+                while (!IsEOF && IsIdentifierPartAt(_position))
+                {
+                    sb.Append(ReadRuneAsString());
+                }
 
                 var val = sb.ToString();
 
@@ -384,38 +385,107 @@ namespace JavaTranslator
         private string ReadStringLiteral()
         {
             var sb = new StringBuilder();
-            var open = Next();
+            var open = Next(); // '"'
             sb.Append(open);
+
             while (!IsEOF)
             {
                 var c = Next();
-                sb.Append(c);
+                if (c == '"')
+                {
+                    sb.Append(c);
+                    return sb.ToString();
+                }
+
                 if (c == '\\')
                 {
-                    if (!IsEOF)
+                    if (IsEOF) { sb.Append('\\'); break; }
+
+                    if (Peek() == 'u')
                     {
-                        if (Peek() == 'u')
+                        // java разрешает несколько u в \uXXXX 
+                        while (Peek() == 'u') Next();
+
+                        int value = 0;
+                        for (int i = 0; i < 4 && !IsEOF; i++)
                         {
-                            while (Peek() == 'u') sb.Append(Next());
-                            for (var i = 0; i < 4 && !IsEOF; i++)
+                            var hx = Next();
+                            int hex;
+                            if (hx >= '0' && hx <= '9') hex = hx - '0';
+                            else if (hx >= 'a' && hx <= 'f') hex = hx - 'a' + 10;
+                            else if (hx >= 'A' && hx <= 'F') hex = hx - 'A' + 10;
+                            else { hex = 0; }
+                            value = (value << 4) + hex;
+                        }
+
+                        if (value >= 0xD800 && value <= 0xDBFF)
+                        {
+                            var saved = _position;
+                            if (Peek() == '\\' && Peek(1) == 'u')
                             {
-                                var hx = Next();
-                                sb.Append(hx);
+                                Next();
+                                Next();
+                                int v2 = 0;
+                                while (Peek() == 'u') Next();
+                                bool ok = true;
+                                for (int i = 0; i < 4 && !IsEOF; i++)
+                                {
+                                    var hx = Next();
+                                    int hex;
+                                    if (hx >= '0' && hx <= '9') hex = hx - '0';
+                                    else if (hx >= 'a' && hx <= 'f') hex = hx - 'a' + 10;
+                                    else if (hx >= 'A' && hx <= 'F') hex = hx - 'A' + 10;
+                                    else { ok = false; break; }
+                                    v2 = (v2 << 4) + hex;
+                                }
+                                if (ok && v2 >= 0xDC00 && v2 <= 0xDFFF)
+                                {
+                                    var combined = char.ConvertFromUtf32(((value - 0xD800) << 10) + (v2 - 0xDC00) + 0x10000);
+                                    sb.Append(combined);
+                                    continue;
+                                }
+                                else
+                                {
+                                    _position = saved;
+                                }
                             }
                         }
-                        else
+
+                        try
                         {
-                            var esc = Next();
-                            sb.Append(esc);
+                            sb.Append(char.ConvertFromUtf32(value));
                         }
+                        catch
+                        {
+                            sb.Append((char)value);
+                        }
+                        continue;
                     }
-                    continue;
+                    else
+                    {
+                        var esc = Next();
+                        switch (esc)
+                        {
+                            case 'n': sb.Append('\n'); break;
+                            case 'r': sb.Append('\r'); break;
+                            case 't': sb.Append('\t'); break;
+                            case 'b': sb.Append('\b'); break;
+                            case 'f': sb.Append('\f'); break;
+                            case '\\': sb.Append('\\'); break;
+                            case '\'': sb.Append('\''); break;
+                            case '"': sb.Append('"'); break;
+                            default: sb.Append(esc); break;
+                        }
+                        continue;
+                    }
                 }
-                if (c == '"')
-                    return sb.ToString();
-                if (c is '\r' or '\n')
+
+                if (c == '\r' || c == '\n')
                     return null;
+
+                sb.Append(c);
             }
+
             return null;
         }
 
@@ -427,42 +497,61 @@ namespace JavaTranslator
             if (IsEOF) return null;
 
             var first = Next();
-            sb.Append(first);
             if (first == '\\')
             {
                 if (IsEOF) return null;
                 if (Peek() == 'u')
                 {
-                    while (Peek() == 'u')
+                    while (Peek() == 'u') Next();
+                    int value = 0;
+                    for (var i = 0; i < 4 && !IsEOF; i++)
                     {
-                        sb.Append(Next());
-                    }
-                    for (var i = 0; i < 4; i++)
-                    {
-                        if (IsEOF) return null;
                         var hx = Next();
-                        sb.Append(hx);
+                        int hex;
+                        if (hx >= '0' && hx <= '9') hex = hx - '0';
+                        else if (hx >= 'a' && hx <= 'f') hex = hx - 'a' + 10;
+                        else if (hx >= 'A' && hx <= 'F') hex = hx - 'A' + 10;
+                        else { hex = 0; }
+                        value = (value << 4) + hex;
                     }
+
+                    try { sb.Append(char.ConvertFromUtf32(value)); }
+                    catch { sb.Append((char)value); }
                 }
                 else
                 {
                     var esc = Next();
-                    sb.Append(esc);
+                    switch (esc)
+                    {
+                        case 'n': sb.Append('\n'); break;
+                        case 'r': sb.Append('\r'); break;
+                        case 't': sb.Append('\t'); break;
+                        case 'b': sb.Append('\b'); break;
+                        case 'f': sb.Append('\f'); break;
+                        case '\\': sb.Append('\\'); break;
+                        case '\'': sb.Append('\''); break;
+                        case '"': sb.Append('"'); break;
+                        default: sb.Append(esc); break;
+                    }
                 }
             }
-            else if (first == '\'') 
+            else if (first == '\'')
             {
-                 return null; 
+                return null;
+            }
+            else
+            {
+                sb.Append(first);
             }
 
             if (IsEOF) return null;
-            
+
             if (Peek() == '\'')
             {
                 sb.Append(Next());
                 return sb.ToString();
             }
-            
+
             return null;
         }
         
@@ -490,6 +579,79 @@ namespace JavaTranslator
             return null;
         }
 
+        // для сурогатных пар Unicode
+        private bool IsIdentifierStartAt(int pos)
+        {
+            if (pos >= _inputText.Length) return false;
+            var ch = _inputText[pos];
+            if (ch == '_' || ch == '$') return true;
+
+            var cat = CharUnicodeInfo.GetUnicodeCategory(_inputText, pos);
+            switch (cat)
+            {
+                case UnicodeCategory.UppercaseLetter:
+                case UnicodeCategory.LowercaseLetter:
+                case UnicodeCategory.TitlecaseLetter:
+                case UnicodeCategory.ModifierLetter:
+                case UnicodeCategory.OtherLetter:
+                case UnicodeCategory.LetterNumber:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        private bool IsIdentifierPartAt(int pos)
+        {
+            if (pos >= _inputText.Length) return false;
+            var ch = _inputText[pos];
+            if (ch is '_' or '$') return true;
+
+            var cat = CharUnicodeInfo.GetUnicodeCategory(_inputText, pos);
+            switch (cat)
+            {
+                case UnicodeCategory.UppercaseLetter:
+                case UnicodeCategory.LowercaseLetter:
+                case UnicodeCategory.TitlecaseLetter:
+                case UnicodeCategory.ModifierLetter:
+                case UnicodeCategory.OtherLetter:
+                case UnicodeCategory.LetterNumber:
+                case UnicodeCategory.DecimalDigitNumber:
+                case UnicodeCategory.ConnectorPunctuation:
+                case UnicodeCategory.NonSpacingMark:
+                case UnicodeCategory.SpacingCombiningMark:
+                case UnicodeCategory.EnclosingMark:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        // считывает 1 или 2 чара и возвращает соответствующую им строку
+        private string ReadRuneAsString()
+        {
+            if (IsEOF) return string.Empty;
+            var c = _inputText[_position];
+            if (char.IsHighSurrogate(c) && _position + 1 < _inputText.Length && char.IsLowSurrogate(_inputText[_position + 1]))
+            {
+                var s = new string(new[] { c, _inputText[_position + 1] });
+                _position += 2;
+                return s;
+            }
+            _position++;
+            return c.ToString();
+        }
+
+        private string PeekRuneAsString(int lookahead = 0)
+        {
+            int pos = _position + lookahead;
+            if (pos >= _inputText.Length) return "\0";
+            var c = _inputText[pos];
+            if (char.IsHighSurrogate(c) && pos + 1 < _inputText.Length && char.IsLowSurrogate(_inputText[pos + 1]))
+                return new string(new[] { c, _inputText[pos + 1] });
+            return c.ToString();
+        }
+        
         #endregion
     }
 }

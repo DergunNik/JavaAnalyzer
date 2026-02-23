@@ -4,3 +4,4 @@ String superString = """"
 Hello world
 """";
 ₽int a = 1;
+var VAR = 1;

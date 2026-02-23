@@ -21,7 +21,8 @@ public static class Keywords
         "short", "static", "strictfp", "super", "switch", "synchronized",
         "this", "throw", "throws", "transient", "try",
         "void", "volatile",
-        "while"
+        "while",
+        "var"
     };
 
     public static readonly HashSet<string> LiteralSet = new(StringComparer.Ordinal)
