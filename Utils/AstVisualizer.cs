@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using JavaTranslator.Ast;
 
 namespace JavaTranslator.Utils;
@@ -10,41 +11,56 @@ public class AstVisualizer
     public string Visualize(AstNode node)
     {
         _sb.Clear();
-        Print(node, "", true);
+        PrintNode(node, "", true);
         return _sb.ToString();
     }
 
-    private void Print(AstNode node, string indent, bool isLast)
+    private void PrintNode(AstNode node, string indent, bool isLast)
     {
         _sb.Append(indent);
         _sb.Append(isLast ? "└── " : "├── ");
-        _sb.Append(node.GetType().Name.Replace("Node", ""));
 
-        var extra = node switch
-        {
-            ImportNode n => $": {n.Path}",
-            ClassDeclNode n => "$: {n.Name}",
-            MethodDeclNode n => $": {n.ReturnType} {n.Name}",
-            VariableDeclNode n => $": {n.Type} {n.Name}",
-            IdentifierExpressionNode n => $": {n.Name}",
-            LiteralExpressionNode n => $": {n.Value}",
-            BinaryExpressionNode n => $": {n.Operator}",
-            UnaryExpressionNode n => $": {n.Operator} (Postfix: {n.IsPostfix})",
-            AssignmentExpressionNode n => $": {n.Operator}",
-            MemberAccessExpressionNode n => $": .{n.MemberName}",
-            ObjectCreationExpressionNode n => $": new {n.Type}",
-            _ => ""
-        };
-
-        _sb.AppendLine(extra);
-
-        indent += isLast ? "    " : "│   ";
+        var label = GetNodeLabel(node);
+        _sb.AppendLine(label);
 
         var children = GetChildren(node);
+        var newIndent = indent + (isLast ? "    " : "│   ");
+
         for (int i = 0; i < children.Count; i++)
         {
-            Print(children[i], indent, i == children.Count - 1);
+            PrintNode(children[i], newIndent, i == children.Count - 1);
         }
+    }
+
+    private string GetNodeLabel(AstNode node)
+    {
+        return node switch
+        {
+            CompilationUnitNode => "CompilationUnit (Root)",
+            ImportNode n => $"Import: {n.Path}",
+            ClassDeclNode n => $"Class: {n.Name}",
+            MethodDeclNode n => $"Method: {n.ReturnType} {n.Name}",
+            ParameterNode n => $"Parameter: {n.Type} {n.Name}",
+            BlockStatementNode => "Block { }",
+            VariableDeclNode n => $"VarDecl: {n.Type} {n.Name}",
+            ExpressionStatementNode => "ExpressionStmt",
+            IfStatementNode => "IfStatement",
+            WhileStatementNode => "WhileStatement",
+            DoWhileStatementNode => "DoWhileStatement",
+            ForStatementNode => "ForStatement",
+            ReturnStatementNode => "ReturnStatement",
+            BreakStatementNode => "Break",
+            ContinueStatementNode => "Continue",
+            BinaryExpressionNode n => $"BinaryExpr (Op: {n.Operator})",
+            UnaryExpressionNode n => $"UnaryExpr (Op: {n.Operator}, Postfix: {n.IsPostfix})",
+            AssignmentExpressionNode n => $"Assignment (Op: {n.Operator})",
+            LiteralExpressionNode n => $"Literal: {n.Value}",
+            IdentifierExpressionNode n => $"Identifier: {n.Name}",
+            MemberAccessExpressionNode n => $"MemberAccess: .{n.MemberName}",
+            MethodCallExpressionNode => "MethodCall",
+            ObjectCreationExpressionNode n => $"NewObject: {n.Type}",
+            _ => node.GetType().Name.Replace("Node", "")
+        };
     }
 
     private List<AstNode> GetChildren(AstNode node)

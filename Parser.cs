@@ -59,11 +59,10 @@ public class Parser
         while (Check(TokenKind.KEYWORD, "import")) root.Imports.Add(ParseImport());
         while (!IsEOF)
         {
-            while (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "private") || Check(TokenKind.KEYWORD, "protected") || Check(TokenKind.KEYWORD, "static"))
-                Advance();
+            while (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "static")) Advance();
 
             if (Check(TokenKind.KEYWORD, "class")) root.Classes.Add(ParseClass());
-            else Advance();
+            else if (!IsEOF) Advance();
         }
         return root;
     }
@@ -90,9 +89,7 @@ public class Parser
 
     private AstNode ParseClassMember()
     {
-        while (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "private") || 
-               Check(TokenKind.KEYWORD, "protected") || Check(TokenKind.KEYWORD, "static") || Check(TokenKind.KEYWORD, "final"))
-            Advance();
+        while (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "static")) Advance();
 
         var type = Advance().Value;
         if (Check(TokenKind.SEPARATOR, "[")) { Advance(); MatchValue(TokenKind.SEPARATOR, "]"); type += "[]"; }
@@ -113,6 +110,7 @@ public class Parser
             method.Body = ParseBlock();
             return method;
         }
+        
         ExpressionNode? init = null;
         if (Check(TokenKind.OPERATOR, "=")) { Advance(); init = ParseExpression(); }
         MatchValue(TokenKind.SEPARATOR, ";");
@@ -132,10 +130,10 @@ public class Parser
     {
         if (Check(TokenKind.SEPARATOR, "{")) return ParseBlock();
         if (Check(TokenKind.KEYWORD, "if")) return ParseIf();
+        if (Check(TokenKind.KEYWORD, "switch")) return ParseSwitchStatement();
         if (Check(TokenKind.KEYWORD, "while")) return ParseWhile();
         if (Check(TokenKind.KEYWORD, "do")) return ParseDoWhile();
         if (Check(TokenKind.KEYWORD, "for")) return ParseFor();
-        if (Check(TokenKind.KEYWORD, "return")) return ParseReturn();
         if (Check(TokenKind.KEYWORD, "break")) { Advance(); MatchValue(TokenKind.SEPARATOR, ";"); return new BreakStatementNode(); }
         if (Check(TokenKind.KEYWORD, "continue")) { Advance(); MatchValue(TokenKind.SEPARATOR, ";"); return new ContinueStatementNode(); }
         if (IsVarDecl()) return ParseVarDeclStmt();
@@ -152,8 +150,19 @@ public class Parser
         MatchValue(TokenKind.SEPARATOR, ")");
         var then = ParseStatement();
         StatementNode? els = null;
-        if (Check(TokenKind.KEYWORD, "else")) { Advance(); els = ParseStatement(); }
+        if (Check(TokenKind.KEYWORD, "else"))
+        {
+            Advance();
+            els = ParseStatement();
+        }
         return new IfStatementNode { Condition = cond, ThenBranch = then, ElseBranch = els };
+    }
+
+    private StatementNode ParseSwitchStatement()
+    {
+        var expr = ParseExpression();
+        if (Check(TokenKind.SEPARATOR, ";")) Advance();
+        return new ExpressionStatementNode { Expression = expr };
     }
 
     private WhileStatementNode ParseWhile()
@@ -213,11 +222,25 @@ public class Parser
 
     private ExpressionNode ParseAssignment()
     {
-        var expr = ParseBinary(0);
+        var expr = ParseTernary();
         if (Check(TokenKind.OPERATOR) && Current.Value.Contains("="))
         {
             var op = Advance().Value;
             return new AssignmentExpressionNode { Target = expr, Operator = op, Value = ParseAssignment() };
+        }
+        return expr;
+    }
+
+    private ExpressionNode ParseTernary()
+    {
+        var expr = ParseBinary(0);
+        if (Check(TokenKind.OPERATOR, "?"))
+        {
+            Advance();
+            var thenExpr = ParseExpression();
+            MatchValue(TokenKind.OPERATOR, ":");
+            var elseExpr = ParseExpression();
+            return new BinaryExpressionNode { Left = expr, Operator = "?", Right = new BinaryExpressionNode { Left = thenExpr, Operator = ":", Right = elseExpr } };
         }
         return expr;
     }
@@ -236,12 +259,17 @@ public class Parser
         return expr;
     }
 
-    private int GetPrec(string op) => op switch { "||" => 1, "&&" => 2, "==" or "!=" => 3, "<" or ">" or "<=" or ">=" => 4, "+" or "-" => 5, "*" or "/" or "%" => 6, _ => 0 };
+    private int GetPrec(string op) => op switch { "||" => 1, "&&" => 2, "==" or "!=" or ">=" or "<=" or ">" or "<" => 3, "+" or "-" => 4, "*" or "/" or "%" => 5, _ => 0 };
 
     private ExpressionNode ParseUnary()
     {
         if (Check(TokenKind.OPERATOR) && (Current.Value == "!" || Current.Value == "-" || Current.Value == "++" || Current.Value == "--"))
             return new UnaryExpressionNode { Operator = Advance().Value, Operand = ParseUnary(), IsPostfix = false };
+        if (Check(TokenKind.KEYWORD, "throw"))
+        {
+            Advance();
+            return new UnaryExpressionNode { Operator = "throw", Operand = ParseExpression() };
+        }
         return ParsePostfix();
     }
 
@@ -281,6 +309,16 @@ public class Parser
                 do { obj.Arguments.Add(ParseExpression()); } while (Check(TokenKind.SEPARATOR, ",") && Advance() != null);
             }
             MatchValue(TokenKind.SEPARATOR, ")"); return obj;
+        }
+        if (Check(TokenKind.KEYWORD, "switch"))
+        {
+            Advance(); MatchValue(TokenKind.SEPARATOR, "(");
+            var switchExpr = ParseExpression();
+            MatchValue(TokenKind.SEPARATOR, ")");
+            MatchValue(TokenKind.SEPARATOR, "{");
+            while (!Check(TokenKind.SEPARATOR, "}")) Advance();
+            MatchValue(TokenKind.SEPARATOR, "}");
+            return new IdentifierExpressionNode { Name = $"switch({switchExpr})" };
         }
         throw new SyntaxException($"Unexpected token {Current.Value}", Current);
     }
