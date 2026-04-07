@@ -1,0 +1,179 @@
+﻿
+1	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(Scanner)SEP(;)
+2	KEY(public)KEY(class)ID(Program2)SEP({)
+3	KEY(public)KEY(static)KEY(void)ID(main)SEP(()ID(String)SEP([)SEP(])ID(args)SEP())SEP({)
+4	ID(Scanner)ID(scanner)OP(=)KEY(new)ID(Scanner)SEP(()ID(System)OP(.)ID(in)SEP())SEP(;)
+5	KEY(int)ID(score)OP(=)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP(;)
+6	KEY(if)SEP(()ID(score)OP(>=)LIT(90, int)SEP())SEP({)
+7	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT(1, int)SEP())SEP(;)
+8	SEP(})KEY(else)KEY(if)SEP(()ID(score)OP(>=)LIT(70, int)SEP())SEP({)
+9	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT(2, int)SEP())SEP(;)
+10	SEP(})KEY(else)SEP({)
+11	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT(3, int)SEP())SEP(;)
+12	SEP(})
+13	KEY(int)ID(age)OP(=)ID(scanner)OP(.)ID(nextInt)SEP(()SEP())SEP(;)
+14	ID(String)ID(status)OP(=)SEP(()ID(age)OP(>=)LIT(18, int)SEP())OP(?)LIT("Взрослый", String)OP(:)LIT("Ребенок", String)SEP(;)
+15	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(status)SEP())SEP(;)
+16	KEY(int)ID(day)OP(=)LIT(2, int)SEP(;)
+17	KEY(switch)SEP(()ID(day)SEP())SEP({)
+18	KEY(case)LIT(1, int)OP(:)
+19	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("Пн", String)SEP())SEP(;)
+20	KEY(break)SEP(;)
+21	KEY(case)LIT(2, int)OP(:)
+22	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("Вт", String)SEP())SEP(;)
+23	KEY(break)SEP(;)
+24	KEY(default)OP(:)
+25	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()LIT("...", String)SEP())SEP(;)
+26	SEP(})
+27	ID(String)ID(dayType)OP(=)KEY(switch)SEP(()ID(day)SEP())SEP({)
+28	KEY(case)LIT(1, int)SEP(,)LIT(2, int)SEP(,)LIT(3, int)SEP(,)LIT(4, int)SEP(,)LIT(5, int)OP(->)LIT("Работа", String)SEP(;)
+29	KEY(case)LIT(6, int)SEP(,)LIT(7, int)OP(->)LIT("Отдых", String)SEP(;)
+30	KEY(default)OP(->)KEY(throw)KEY(new)ID(IllegalStateException)SEP(()SEP())SEP(;)
+31	SEP(})SEP(;)
+32	ID(System)OP(.)ID(out)OP(.)ID(println)SEP(()ID(dayType)SEP())SEP(;)
+33	SEP(})
+34	SEP(})
+35	EOF
+
+
+Stats
+
+
+EOF
+============================================================
+i	cnt	val
+============================================================
+1	1	
+============================================================
+
+IDENTIFIER
+============================================================
+i	cnt	val
+============================================================
+1	1	java
+2	1	util
+3	3	Scanner
+4	1	Program2
+5	1	main
+6	3	String
+7	1	args
+8	3	scanner
+9	9	System
+10	1	in
+11	3	score
+12	2	nextInt
+13	8	out
+14	8	println
+15	2	age
+16	2	status
+17	3	day
+18	2	dayType
+19	1	IllegalStateException
+============================================================
+
+KEYWORD
+============================================================
+i	cnt	val
+============================================================
+1	1	import
+2	2	public
+3	1	class
+4	1	static
+5	1	void
+6	2	new
+7	3	int
+8	2	if
+9	2	else
+10	2	switch
+11	4	case
+12	2	break
+13	2	default
+14	1	throw
+============================================================
+
+LITERAL
+============================================================
+i	cnt	val
+============================================================
+1	1	(90, int)
+2	3	(1, int)
+3	1	(70, int)
+4	4	(2, int)
+5	2	(3, int)
+6	1	(18, int)
+7	1	("Взрослый", String)
+8	1	("Ребенок", String)
+9	1	("Пн", String)
+10	1	("Вт", String)
+11	1	("...", String)
+12	1	(4, int)
+13	1	(5, int)
+14	1	("Работа", String)
+15	1	(6, int)
+16	1	(7, int)
+17	1	("Отдых", String)
+============================================================
+
+OPERATOR
+============================================================
+i	cnt	val
+============================================================
+1	21	.
+2	6	=
+3	3	>=
+4	1	?
+5	4	:
+6	3	->
+============================================================
+
+SEPARATOR
+============================================================
+i	cnt	val
+============================================================
+1	20	;
+2	7	{
+3	18	(
+4	1	[
+5	1	]
+6	18	)
+7	7	}
+8	5	,
+============================================================
+
+Lexemes
+============================================================
+import <ИД1> . <ИД2> . <ИД3> ; 
+public class <ИД4> { 
+public static void <ИД5> ( <ИД6> [ ] <ИД7> ) { 
+<ИД3> <ИД8> = new <ИД3> ( <ИД9> . <ИД10> ) ; 
+int <ИД11> = <ИД8> . <ИД12> ( ) ; 
+if ( <ИД11> >= <ИД13> ) { 
+<ИД9> . <ИД14> . <ИД15> ( <ИД16> ) ; 
+} else if ( <ИД11> >= <ИД17> ) { 
+<ИД9> . <ИД14> . <ИД15> ( <ИД18> ) ; 
+} else { 
+<ИД9> . <ИД14> . <ИД15> ( <ИД19> ) ; 
+} 
+int <ИД20> = <ИД8> . <ИД12> ( ) ; 
+<ИД6> <ИД21> = ( <ИД20> >= <ИД22> ) ? <ИД23> : <ИД24> ; 
+<ИД9> . <ИД14> . <ИД15> ( <ИД21> ) ; 
+int <ИД25> = <ИД18> ; 
+switch ( <ИД25> ) { 
+case <ИД16> : 
+<ИД9> . <ИД14> . <ИД15> ( <ИД26> ) ; 
+break ; 
+case <ИД18> : 
+<ИД9> . <ИД14> . <ИД15> ( <ИД27> ) ; 
+break ; 
+default : 
+<ИД9> . <ИД14> . <ИД15> ( <ИД28> ) ; 
+} 
+<ИД6> <ИД29> = switch ( <ИД25> ) { 
+case <ИД16> , <ИД18> , <ИД19> , <ИД30> , <ИД31> -> <ИД32> ; 
+case <ИД33> , <ИД34> -> <ИД35> ; 
+default -> throw new <ИД36> ( ) ; 
+} ; 
+<ИД9> . <ИД14> . <ИД15> ( <ИД29> ) ; 
+} 
+} 
+============================================================

@@ -1,184 +1,184 @@
-﻿└── CompilationUnit
+﻿└── CompilationUnit (Root)
     ├── Import: java.util.Scanner
-    └── ClassDecl$: {n.Name}
-        └── MethodDecl: void main
-            ├── Parameter
-            └── BlockStatement
-                ├── VariableDecl: Scanner scanner
-                │   └── ObjectCreationExpression: new Scanner
-                │       └── MemberAccessExpression: .in
-                │           └── IdentifierExpression: System
-                ├── VariableDecl: byte workHoursPerDay
-                │   └── LiteralExpression: 8
-                ├── VariableDecl: short hourlyRate
-                │   └── LiteralExpression: 100
-                ├── VariableDecl: int baseSalary
-                │   └── LiteralExpression: 0
-                ├── VariableDecl: int octalBonus
-                │   └── LiteralExpression: 010
-                ├── VariableDecl: int hexBonus
-                │   └── LiteralExpression: 0x2A
-                ├── VariableDecl: int binBonus
-                │   └── LiteralExpression: 0b101010
-                ├── VariableDecl: long annualLimit
-                │   └── LiteralExpression: 1_000_000L
-                ├── VariableDecl: double taxRate
-                │   └── LiteralExpression: 0.13
-                ├── VariableDecl: double sciCoeff
-                │   └── LiteralExpression: 1.2e1
-                ├── VariableDecl: double hexCoeff
-                │   └── LiteralExpression: 0x1.0p1
-                ├── VariableDecl: float experienceCoeff
-                │   └── LiteralExpression: 1.1f
-                ├── VariableDecl: char currency
-                │   └── LiteralExpression: '₽'
-                ├── VariableDecl: char unicodeChar
-                │   └── LiteralExpression: 'A'
-                ├── VariableDecl: boolean hasBonus
-                │   └── LiteralExpression: true
-                ├── VariableDecl: var message
-                │   └── LiteralExpression: "Расчет заработной платы"
-                ├── ExpressionStatement
-                │   └── MethodCallExpression
-                │       ├── MemberAccessExpression: .println
-                │       │   └── MemberAccessExpression: .out
-                │       │       └── IdentifierExpression: System
-                │       └── IdentifierExpression: message
-                ├── ExpressionStatement
-                │   └── MethodCallExpression
-                │       ├── MemberAccessExpression: .print
-                │       │   └── MemberAccessExpression: .out
-                │       │       └── IdentifierExpression: System
-                │       └── LiteralExpression: "Введите количество рабочих дней: "
-                ├── VariableDecl: int days
-                │   └── MethodCallExpression
-                │       └── MemberAccessExpression: .nextInt
-                │           └── IdentifierExpression: scanner
+    └── Class: Program1
+        └── Method: void main
+            ├── Parameter: String[] args
+            └── Block { }
+                ├── VarDecl: Scanner scanner
+                │   └── NewObject: Scanner
+                │       └── MemberAccess: .in
+                │           └── Identifier: System
+                ├── VarDecl: byte workHoursPerDay
+                │   └── Literal: 8
+                ├── VarDecl: short hourlyRate
+                │   └── Literal: 100
+                ├── VarDecl: int baseSalary
+                │   └── Literal: 0
+                ├── VarDecl: int octalBonus
+                │   └── Literal: 010
+                ├── VarDecl: int hexBonus
+                │   └── Literal: 0x2A
+                ├── VarDecl: int binBonus
+                │   └── Literal: 0b101010
+                ├── VarDecl: long annualLimit
+                │   └── Literal: 1_000_000L
+                ├── VarDecl: double taxRate
+                │   └── Literal: 0.13
+                ├── VarDecl: double sciCoeff
+                │   └── Literal: 1.2e1
+                ├── VarDecl: double hexCoeff
+                │   └── Literal: 0x1.0p1
+                ├── VarDecl: float experienceCoeff
+                │   └── Literal: 1.1f
+                ├── VarDecl: char currency
+                │   └── Literal: '₽'
+                ├── VarDecl: char unicodeChar
+                │   └── Literal: 'A'
+                ├── VarDecl: boolean hasBonus
+                │   └── Literal: true
+                ├── VarDecl: var message
+                │   └── Literal: "Расчет заработной платы"
+                ├── ExpressionStmt
+                │   └── MethodCall
+                │       ├── MemberAccess: .println
+                │       │   └── MemberAccess: .out
+                │       │       └── Identifier: System
+                │       └── Identifier: message
+                ├── ExpressionStmt
+                │   └── MethodCall
+                │       ├── MemberAccess: .print
+                │       │   └── MemberAccess: .out
+                │       │       └── Identifier: System
+                │       └── Literal: "Введите количество рабочих дней: "
+                ├── VarDecl: int days
+                │   └── MethodCall
+                │       └── MemberAccess: .nextInt
+                │           └── Identifier: scanner
                 ├── ForStatement
-                │   ├── VariableDecl: int i
-                │   │   └── LiteralExpression: 1
-                │   ├── BinaryExpression: <=
-                │   │   ├── IdentifierExpression: i
-                │   │   └── IdentifierExpression: days
-                │   ├── UnaryExpression: ++ (Postfix: True)
-                │   │   └── IdentifierExpression: i
-                │   └── BlockStatement
+                │   ├── VarDecl: int i
+                │   │   └── Literal: 1
+                │   ├── BinaryExpr (Op: <=)
+                │   │   ├── Identifier: i
+                │   │   └── Identifier: days
+                │   ├── UnaryExpr (Op: ++, Postfix: True)
+                │   │   └── Identifier: i
+                │   └── Block { }
                 │       ├── IfStatement
-                │       │   ├── BinaryExpression: ==
-                │       │   │   ├── BinaryExpression: %
-                │       │   │   │   ├── IdentifierExpression: i
-                │       │   │   │   └── LiteralExpression: 7
-                │       │   │   └── LiteralExpression: 0
-                │       │   └── ContinueStatement
+                │       │   ├── BinaryExpr (Op: ==)
+                │       │   │   ├── BinaryExpr (Op: %)
+                │       │   │   │   ├── Identifier: i
+                │       │   │   │   └── Literal: 7
+                │       │   │   └── Literal: 0
+                │       │   └── Continue
                 │       ├── IfStatement
-                │       │   ├── BinaryExpression: >
-                │       │   │   ├── IdentifierExpression: i
-                │       │   │   └── LiteralExpression: 31
-                │       │   └── BreakStatement
-                │       └── ExpressionStatement
-                │           └── AssignmentExpression: +=
-                │               ├── IdentifierExpression: baseSalary
-                │               └── BinaryExpression: *
-                │                   ├── IdentifierExpression: workHoursPerDay
-                │                   └── IdentifierExpression: hourlyRate
+                │       │   ├── BinaryExpr (Op: >)
+                │       │   │   ├── Identifier: i
+                │       │   │   └── Literal: 31
+                │       │   └── Break
+                │       └── ExpressionStmt
+                │           └── Assignment (Op: +=)
+                │               ├── Identifier: baseSalary
+                │               └── BinaryExpr (Op: *)
+                │                   ├── Identifier: workHoursPerDay
+                │                   └── Identifier: hourlyRate
                 ├── IfStatement
-                │   ├── IdentifierExpression: hasBonus
-                │   └── BlockStatement
-                │       └── ExpressionStatement
-                │           └── AssignmentExpression: +=
-                │               ├── IdentifierExpression: baseSalary
-                │               └── BinaryExpression: +
-                │                   ├── BinaryExpression: +
-                │                   │   ├── IdentifierExpression: octalBonus
-                │                   │   └── IdentifierExpression: hexBonus
-                │                   └── IdentifierExpression: binBonus
-                ├── VariableDecl: double grossSalary
-                │   └── BinaryExpression: *
-                │       ├── BinaryExpression: *
-                │       │   ├── BinaryExpression: *
-                │       │   │   ├── IdentifierExpression: baseSalary
-                │       │   │   └── IdentifierExpression: experienceCoeff
-                │       │   └── IdentifierExpression: sciCoeff
-                │       └── IdentifierExpression: hexCoeff
-                ├── VariableDecl: double tax
-                │   └── BinaryExpression: *
-                │       ├── IdentifierExpression: grossSalary
-                │       └── IdentifierExpression: taxRate
-                ├── VariableDecl: double netSalary
-                │   └── BinaryExpression: -
-                │       ├── IdentifierExpression: grossSalary
-                │       └── IdentifierExpression: tax
-                ├── ExpressionStatement
-                │   └── MethodCallExpression
-                │       ├── MemberAccessExpression: .println
-                │       │   └── MemberAccessExpression: .out
-                │       │       └── IdentifierExpression: System
-                │       └── BinaryExpression: +
-                │           ├── BinaryExpression: +
-                │           │   ├── BinaryExpression: +
-                │           │   │   ├── LiteralExpression: "Валовая зарплата: "
-                │           │   │   └── IdentifierExpression: grossSalary
-                │           │   └── LiteralExpression: " "
-                │           └── IdentifierExpression: currency
-                ├── ExpressionStatement
-                │   └── MethodCallExpression
-                │       ├── MemberAccessExpression: .println
-                │       │   └── MemberAccessExpression: .out
-                │       │       └── IdentifierExpression: System
-                │       └── BinaryExpression: +
-                │           ├── BinaryExpression: +
-                │           │   ├── BinaryExpression: +
-                │           │   │   ├── LiteralExpression: "Налог: "
-                │           │   │   └── IdentifierExpression: tax
-                │           │   └── LiteralExpression: " "
-                │           └── IdentifierExpression: currency
-                ├── ExpressionStatement
-                │   └── MethodCallExpression
-                │       ├── MemberAccessExpression: .println
-                │       │   └── MemberAccessExpression: .out
-                │       │       └── IdentifierExpression: System
-                │       └── BinaryExpression: +
-                │           ├── BinaryExpression: +
-                │           │   ├── BinaryExpression: +
-                │           │   │   ├── LiteralExpression: "К выплате: "
-                │           │   │   └── IdentifierExpression: netSalary
-                │           │   └── LiteralExpression: " "
-                │           └── IdentifierExpression: currency
-                ├── VariableDecl: int j
-                │   └── LiteralExpression: 0
+                │   ├── Identifier: hasBonus
+                │   └── Block { }
+                │       └── ExpressionStmt
+                │           └── Assignment (Op: +=)
+                │               ├── Identifier: baseSalary
+                │               └── BinaryExpr (Op: +)
+                │                   ├── BinaryExpr (Op: +)
+                │                   │   ├── Identifier: octalBonus
+                │                   │   └── Identifier: hexBonus
+                │                   └── Identifier: binBonus
+                ├── VarDecl: double grossSalary
+                │   └── BinaryExpr (Op: *)
+                │       ├── BinaryExpr (Op: *)
+                │       │   ├── BinaryExpr (Op: *)
+                │       │   │   ├── Identifier: baseSalary
+                │       │   │   └── Identifier: experienceCoeff
+                │       │   └── Identifier: sciCoeff
+                │       └── Identifier: hexCoeff
+                ├── VarDecl: double tax
+                │   └── BinaryExpr (Op: *)
+                │       ├── Identifier: grossSalary
+                │       └── Identifier: taxRate
+                ├── VarDecl: double netSalary
+                │   └── BinaryExpr (Op: -)
+                │       ├── Identifier: grossSalary
+                │       └── Identifier: tax
+                ├── ExpressionStmt
+                │   └── MethodCall
+                │       ├── MemberAccess: .println
+                │       │   └── MemberAccess: .out
+                │       │       └── Identifier: System
+                │       └── BinaryExpr (Op: +)
+                │           ├── BinaryExpr (Op: +)
+                │           │   ├── BinaryExpr (Op: +)
+                │           │   │   ├── Literal: "Валовая зарплата: "
+                │           │   │   └── Identifier: grossSalary
+                │           │   └── Literal: " "
+                │           └── Identifier: currency
+                ├── ExpressionStmt
+                │   └── MethodCall
+                │       ├── MemberAccess: .println
+                │       │   └── MemberAccess: .out
+                │       │       └── Identifier: System
+                │       └── BinaryExpr (Op: +)
+                │           ├── BinaryExpr (Op: +)
+                │           │   ├── BinaryExpr (Op: +)
+                │           │   │   ├── Literal: "Налог: "
+                │           │   │   └── Identifier: tax
+                │           │   └── Literal: " "
+                │           └── Identifier: currency
+                ├── ExpressionStmt
+                │   └── MethodCall
+                │       ├── MemberAccess: .println
+                │       │   └── MemberAccess: .out
+                │       │       └── Identifier: System
+                │       └── BinaryExpr (Op: +)
+                │           ├── BinaryExpr (Op: +)
+                │           │   ├── BinaryExpr (Op: +)
+                │           │   │   ├── Literal: "К выплате: "
+                │           │   │   └── Identifier: netSalary
+                │           │   └── Literal: " "
+                │           └── Identifier: currency
+                ├── VarDecl: int j
+                │   └── Literal: 0
                 ├── WhileStatement
-                │   ├── BinaryExpression: <
-                │   │   ├── IdentifierExpression: j
-                │   │   └── LiteralExpression: 2
-                │   └── BlockStatement
-                │       ├── ExpressionStatement
-                │       │   └── MethodCallExpression
-                │       │       ├── MemberAccessExpression: .println
-                │       │       │   └── MemberAccessExpression: .out
-                │       │       │       └── IdentifierExpression: System
-                │       │       └── BinaryExpression: +
-                │       │           ├── LiteralExpression: "Проверка лимита: "
-                │       │           └── BinaryExpression: <
-                │       │               ├── IdentifierExpression: netSalary
-                │       │               └── IdentifierExpression: annualLimit
-                │       └── ExpressionStatement
-                │           └── UnaryExpression: ++ (Postfix: True)
-                │               └── IdentifierExpression: j
-                ├── VariableDecl: int k
-                │   └── LiteralExpression: 0
+                │   ├── BinaryExpr (Op: <)
+                │   │   ├── Identifier: j
+                │   │   └── Literal: 2
+                │   └── Block { }
+                │       ├── ExpressionStmt
+                │       │   └── MethodCall
+                │       │       ├── MemberAccess: .println
+                │       │       │   └── MemberAccess: .out
+                │       │       │       └── Identifier: System
+                │       │       └── BinaryExpr (Op: +)
+                │       │           ├── Literal: "Проверка лимита: "
+                │       │           └── BinaryExpr (Op: <)
+                │       │               ├── Identifier: netSalary
+                │       │               └── Identifier: annualLimit
+                │       └── ExpressionStmt
+                │           └── UnaryExpr (Op: ++, Postfix: True)
+                │               └── Identifier: j
+                ├── VarDecl: int k
+                │   └── Literal: 0
                 └── DoWhileStatement
-                    ├── BlockStatement
-                    │   ├── ExpressionStatement
-                    │   │   └── MethodCallExpression
-                    │   │       ├── MemberAccessExpression: .println
-                    │   │       │   └── MemberAccessExpression: .out
-                    │   │       │       └── IdentifierExpression: System
-                    │   │       └── BinaryExpression: +
-                    │   │           ├── LiteralExpression: "Символ отчета: "
-                    │   │           └── IdentifierExpression: unicodeChar
-                    │   └── ExpressionStatement
-                    │       └── UnaryExpression: ++ (Postfix: True)
-                    │           └── IdentifierExpression: k
-                    └── BinaryExpression: <
-                        ├── IdentifierExpression: k
-                        └── LiteralExpression: 1
+                    ├── Block { }
+                    │   ├── ExpressionStmt
+                    │   │   └── MethodCall
+                    │   │       ├── MemberAccess: .println
+                    │   │       │   └── MemberAccess: .out
+                    │   │       │       └── Identifier: System
+                    │   │       └── BinaryExpr (Op: +)
+                    │   │           ├── Literal: "Символ отчета: "
+                    │   │           └── Identifier: unicodeChar
+                    │   └── ExpressionStmt
+                    │       └── UnaryExpr (Op: ++, Postfix: True)
+                    │           └── Identifier: k
+                    └── BinaryExpr (Op: <)
+                        ├── Identifier: k
+                        └── Literal: 1
