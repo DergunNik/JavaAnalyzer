@@ -1,0 +1,65 @@
+﻿import java.util.Scanner;
+
+public class Program1 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        byte workHoursPerDay = 8;
+        short hourlyRate = 100;
+        int baseSalary = 0;
+
+        int octalBonus = 010;      // 8
+        int hexBonus = 0x2A;       // 42
+        int binBonus = 0b101010;   // 42
+
+        long annualLimit = 1_000_000L;
+
+        double taxRate = 0.13;
+        double sciCoeff = 1.2e1;
+        double hexCoeff = 0x1.0p1;
+
+        float experienceCoeff = 1.1f;
+
+        char currency = '₽';
+        char unicodeChar = '\u0041';
+
+        boolean hasBonus = true;
+
+        var message = "Расчет заработной платы";
+        System.out.println(message);
+
+        System.out.print("Введите количество рабочих дней: ");
+        int days = scanner.nextInt();
+
+        for (int i = 1; i <= days; i++) {
+            if (i % 7 == 0) continue;
+            if (i > 31) break;
+            baseSalary += workHoursPerDay * hourlyRate;
+        }
+
+        if (hasBonus) {
+            baseSalary += octalBonus + hexBonus + binBonus;
+        }
+
+        double grossSalary = baseSalary * experienceCoeff * sciCoeff * hexCoeff;
+        double tax = grossSalary * taxRate;
+        double netSalary = grossSalary - tax;
+
+        System.out.println("Валовая зарплата: " + grossSalary + " " + currency);
+        System.out.println("Налог: " + tax + " " + currency);
+        System.out.println("К выплате: " + netSalary + " " + currency);
+
+        int j = 0;
+        while (j < 2) {
+            System.out.println("Проверка лимита: " + (netSalary < annualLimit));
+            j++;
+        }
+
+        int k = 0;
+        do {
+            System.out.println("Символ отчета: " + unicodeChar);
+            k++;
+        } while (k < 1);
+    }
+}
