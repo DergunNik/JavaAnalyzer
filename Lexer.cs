@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using JavaTranslator.Tokens;
 
@@ -36,10 +38,16 @@ namespace JavaTranslator
 
         public Token NextToken()
         {
-            SkipWhitespaceAndComments();
+            var tokenStart = _position;
+            bool unterminatedComment = SkipWhitespaceAndComments();
 
             var start = _position;
             var isFromNewLine = _atLineStart;
+
+            if (unterminatedComment)
+            {
+                return new Token(TokenKind.ERROR, "Unterminated comment", tokenStart, isFromNewLine);
+            }
 
             if (IsEOF)
             {
@@ -193,9 +201,10 @@ namespace JavaTranslator
             return _inputText[_position++];
         }
 
-        private void SkipWhitespaceAndComments()
+        private bool SkipWhitespaceAndComments()
         {
             var sawNewline = false;
+            bool unterminatedComment = false;
             while (!IsEOF)
             {
                 var c = Peek();
@@ -233,11 +242,13 @@ namespace JavaTranslator
                 if (c == '/' && Peek(1) == '*')
                 {
                     Next(); Next();
+                    bool terminated = false;
                     while (!IsEOF)
                     {
                         if (Peek() == '*' && Peek(1) == '/')
                         {
                             Next(); Next();
+                            terminated = true;
                             break;
                         }
 
@@ -259,6 +270,8 @@ namespace JavaTranslator
                             Next();
                         }
                     }
+                    if (!terminated)
+                        unterminatedComment = true;
                     continue;
                 }
 
@@ -266,6 +279,7 @@ namespace JavaTranslator
             }
 
             _atLineStart = sawNewline || (_atLineStart && _position == 0);
+            return unterminatedComment;
         }
 
         private static bool IsIdentifierStart(char c)
