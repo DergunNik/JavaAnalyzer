@@ -28,7 +28,7 @@
                 │   └── Literal: 1.2e1
                 ├── VarDecl: double hexCoeff
                 │   └── Literal: 0x1.0p1
-                ├── VarDecl: float experienceCoeff
+                ├── VarDecl: float constconst
                 │   └── Literal: 1.1f
                 ├── VarDecl: char currency
                 │   └── Literal: '₽'

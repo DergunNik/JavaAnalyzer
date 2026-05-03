@@ -61,10 +61,9 @@
                 │       └── Identifier: status
                 ├── VarDecl: int day
                 │   └── Literal: 2
-                ├── ExpressionStmt
-                │   └── Identifier: switch(JavaTranslator.Ast.IdentifierExpressionNode)
+                ├── Block { }
                 ├── VarDecl: String dayType
-                │   └── Identifier: switch(JavaTranslator.Ast.IdentifierExpressionNode)
+                │   └── Identifier: switch
                 └── ExpressionStmt
                     └── MethodCall
                         ├── MemberAccess: .println

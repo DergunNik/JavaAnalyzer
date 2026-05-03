@@ -1,0 +1,41 @@
+﻿import java.util.Scanner;
+
+public class SyntaxErrorsDemo {
+    public static void main(String[] args) {
+        int a = 1
+        System.out.println(a);
+    }
+
+    public static void second() {
+        if (true {
+            System.out.println(2);
+        }
+    }
+
+    public static void third() {
+        int day = 1;
+        switch (day) {
+            case 1
+                System.out.println("one");
+                break;
+            default:
+                System.out.println("other");
+        }
+    }
+
+    public static void fourth() {
+        System.out.println(1, );
+    }
+
+    public static void fifth() {
+        for (int i = 0; i < 3; i++ {
+            System.out.println(i);
+        }
+    }
+    
+    public static void sixth() {
+        for (int i = 0; i < 3; i++) {
+            int a = 1..1;
+        }
+    }
+}

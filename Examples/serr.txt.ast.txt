@@ -1,0 +1,50 @@
+﻿└── CompilationUnit (Root)
+    ├── Import: java.util.Scanner
+    └── Class: SyntaxErrorsDemo
+        ├── Method: void main
+        │   ├── Parameter: String[] args
+        │   └── Block { }
+        │       └── ExpressionStmt
+        │           └── MethodCall
+        │               ├── MemberAccess: .println
+        │               │   └── MemberAccess: .out
+        │               │       └── Identifier: System
+        │               └── Identifier: a
+        ├── Method: void second
+        │   └── Block { }
+        │       └── Block { }
+        │           └── ExpressionStmt
+        │               └── MethodCall
+        │                   ├── MemberAccess: .println
+        │                   │   └── MemberAccess: .out
+        │                   │       └── Identifier: System
+        │                   └── Literal: 2
+        ├── Method: void third
+        │   └── Block { }
+        │       ├── VarDecl: int day
+        │       │   └── Literal: 1
+        │       └── Block { }
+        ├── Method: void fourth
+        │   └── Block { }
+        ├── Method: void fifth
+        │   └── Block { }
+        │       └── Block { }
+        │           └── ExpressionStmt
+        │               └── MethodCall
+        │                   ├── MemberAccess: .println
+        │                   │   └── MemberAccess: .out
+        │                   │       └── Identifier: System
+        │                   └── Identifier: i
+        └── Method: void sixth
+            └── Block { }
+                └── ForStatement
+                    ├── VarDecl: int i
+                    │   └── Literal: 0
+                    ├── BinaryExpr (Op: <)
+                    │   ├── Identifier: i
+                    │   └── Literal: 3
+                    ├── UnaryExpr (Op: ++, Postfix: True)
+                    │   └── Identifier: i
+                    └── Block { }
+                        └── ExpressionStmt
+                            └── Literal: 1

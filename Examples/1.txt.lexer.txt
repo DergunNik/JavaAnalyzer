@@ -1,23 +1,53 @@
 ﻿
-1	KEY(import)ID(java)OP(.)ID(util)OP(.)ID(Scanner)SEP(;)
+1	KEY(import)ID(java)SEP(.)ID(util)SEP(.)ID(Scanner)SEP(;)
 2	KEY(public)KEY(class)ID(Program1)SEP({)
 3	KEY(public)KEY(static)KEY(void)ID(main)SEP(()ID(String)SEP([)SEP(])ID(args)SEP())SEP({)
-4	ID(Scanner)ID(scanner)OP(=)KEY(new)ID(Scanner)SEP(()ID(System)OP(.)ID(in)SEP())SEP(;)
-5	KEY(byte)ID(workHoursPerDay)OP(=)LIT(8, int)SEP(;)
-6	KEY(short)ID(hourlyRate)OP(=)LIT(100, int)SEP(;)
-7	KEY(int)ID(baseSalary)OP(=)LIT(0, int)SEP(;)
-8	KEY(int)ID(octalBonus)OP(=)LIT(010, int)SEP(;)
-9	KEY(int)ID(hexBonus)OP(=)LIT(0x2A, int)SEP(;)
-10	KEY(int)ID(binBonus)OP(=)LIT(0b101010, int)SEP(;)
-11	KEY(long)ID(annualLimit)OP(=)LIT(1_000_000L, long)SEP(;)
-12	KEY(double)ID(taxRate)OP(=)LIT(0.13, double)SEP(;)
-13	KEY(double)ID(sciCoeff)OP(=)LIT(1.2e1, double)SEP(;)
-14	KEY(double)ID(hexCoeff)OP(=)LIT(0x1.0p1, double)SEP(;)
-15	KEY(float)ID(constconst)OP(=)LIT(1.1f, float)SEP(;)
-16	KEY(char)ID(currency)OP(=)LIT('₽', char)SEP(;)
-17	KEY(char)ID(unicodeChar)OP(=)LIT('A', char)SEP(;)
-18	KEY(char)ID(c)OP(=)ERR(Unterminated char literal)SEP(;)
-19	KEY(var)ID(s)OP(=)ERR(Unterminated text block)EOF
+4	ID(Scanner)ID(scanner)OP(=)KEY(new)ID(Scanner)SEP(()ID(System)SEP(.)ID(in)SEP())SEP(;)
+5	KEY(byte)ID(workHoursPerDay)OP(=)LIT(8)SEP(;)
+6	KEY(short)ID(hourlyRate)OP(=)LIT(100)SEP(;)
+7	KEY(int)ID(baseSalary)OP(=)LIT(0)SEP(;)
+8	KEY(int)ID(octalBonus)OP(=)LIT(010)SEP(;)
+9	KEY(int)ID(hexBonus)OP(=)LIT(0x2A)SEP(;)
+10	KEY(int)ID(binBonus)OP(=)LIT(0b101010)SEP(;)
+11	KEY(long)ID(annualLimit)OP(=)LIT(1_000_000L)SEP(;)
+12	KEY(double)ID(taxRate)OP(=)LIT(0.13)SEP(;)
+13	KEY(double)ID(sciCoeff)OP(=)LIT(1.2e1)SEP(;)
+14	KEY(double)ID(hexCoeff)OP(=)LIT(0x1.0p1)SEP(;)
+15	KEY(float)ID(constconst)OP(=)LIT(1.1f)SEP(;)
+16	KEY(char)ID(currency)OP(=)LIT('₽')SEP(;)
+17	KEY(char)ID(unicodeChar)OP(=)LIT('A')SEP(;)
+18	KEY(boolean)ID(hasBonus)OP(=)LIT(true)SEP(;)
+19	KEY(var)ID(message)OP(=)LIT("Расчет заработной платы")SEP(;)
+20	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()ID(message)SEP())SEP(;)
+21	ID(System)SEP(.)ID(out)SEP(.)ID(print)SEP(()LIT("Введите количество рабочих дней: ")SEP())SEP(;)
+22	KEY(int)ID(days)OP(=)ID(scanner)SEP(.)ID(nextInt)SEP(()SEP())SEP(;)
+23	KEY(for)SEP(()KEY(int)ID(i)OP(=)LIT(1)SEP(;)ID(i)OP(<=)ID(days)SEP(;)ID(i)OP(++)SEP())SEP({)
+24	KEY(if)SEP(()ID(i)OP(%)LIT(7)OP(==)LIT(0)SEP())KEY(continue)SEP(;)
+25	KEY(if)SEP(()ID(i)OP(>)LIT(31)SEP())KEY(break)SEP(;)
+26	ID(baseSalary)OP(+=)ID(workHoursPerDay)OP(*)ID(hourlyRate)SEP(;)
+27	SEP(})
+28	KEY(if)SEP(()ID(hasBonus)SEP())SEP({)
+29	ID(baseSalary)OP(+=)ID(octalBonus)OP(+)ID(hexBonus)OP(+)ID(binBonus)SEP(;)
+30	SEP(})
+31	KEY(double)ID(grossSalary)OP(=)ID(baseSalary)OP(*)ID(experienceCoeff)OP(*)ID(sciCoeff)OP(*)ID(hexCoeff)SEP(;)
+32	KEY(double)ID(tax)OP(=)ID(grossSalary)OP(*)ID(taxRate)SEP(;)
+33	KEY(double)ID(netSalary)OP(=)ID(grossSalary)OP(-)ID(tax)SEP(;)
+34	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()LIT("Валовая зарплата: ")OP(+)ID(grossSalary)OP(+)LIT(" ")OP(+)ID(currency)SEP())SEP(;)
+35	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()LIT("Налог: ")OP(+)ID(tax)OP(+)LIT(" ")OP(+)ID(currency)SEP())SEP(;)
+36	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()LIT("К выплате: ")OP(+)ID(netSalary)OP(+)LIT(" ")OP(+)ID(currency)SEP())SEP(;)
+37	KEY(int)ID(j)OP(=)LIT(0)SEP(;)
+38	KEY(while)SEP(()ID(j)OP(<)LIT(2)SEP())SEP({)
+39	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()LIT("Проверка лимита: ")OP(+)SEP(()ID(netSalary)OP(<)ID(annualLimit)SEP())SEP())SEP(;)
+40	ID(j)OP(++)SEP(;)
+41	SEP(})
+42	KEY(int)ID(k)OP(=)LIT(0)SEP(;)
+43	KEY(do)SEP({)
+44	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()LIT("Символ отчета: ")OP(+)ID(unicodeChar)SEP())SEP(;)
+45	ID(k)OP(++)SEP(;)
+46	SEP(})KEY(while)SEP(()ID(k)OP(<)LIT(1)SEP())SEP(;)
+47	SEP(})
+48	SEP(})
+49	EOF
 
 
 Stats
@@ -28,14 +58,6 @@ EOF
 i	cnt	val
 ============================================================
 1	1	
-============================================================
-
-ERROR
-============================================================
-i	cnt	val
-============================================================
-1	1	Unterminated char literal
-2	1	Unterminated text block
 ============================================================
 
 IDENTIFIER
@@ -49,24 +71,36 @@ i	cnt	val
 5	1	main
 6	1	String
 7	1	args
-8	1	scanner
-9	1	System
+8	2	scanner
+9	8	System
 10	1	in
-11	1	workHoursPerDay
-12	1	hourlyRate
-13	1	baseSalary
-14	1	octalBonus
-15	1	hexBonus
-16	1	binBonus
-17	1	annualLimit
-18	1	taxRate
-19	1	sciCoeff
-20	1	hexCoeff
+11	2	workHoursPerDay
+12	2	hourlyRate
+13	4	baseSalary
+14	2	octalBonus
+15	2	hexBonus
+16	2	binBonus
+17	2	annualLimit
+18	2	taxRate
+19	2	sciCoeff
+20	2	hexCoeff
 21	1	constconst
-22	1	currency
-23	1	unicodeChar
-24	1	c
-25	1	s
+22	4	currency
+23	2	unicodeChar
+24	2	hasBonus
+25	2	message
+26	7	out
+27	6	println
+28	1	print
+29	2	days
+30	1	nextInt
+31	5	i
+32	4	grossSalary
+33	1	experienceCoeff
+34	3	tax
+35	3	netSalary
+36	3	j
+37	3	k
 ============================================================
 
 KEYWORD
@@ -81,51 +115,82 @@ i	cnt	val
 6	1	new
 7	1	byte
 8	1	short
-9	4	int
+9	8	int
 10	1	long
-11	3	double
+11	6	double
 12	1	float
-13	3	char
-14	1	var
+13	2	char
+14	1	boolean
+15	1	var
+16	1	for
+17	3	if
+18	1	continue
+19	1	break
+20	2	while
+21	1	do
 ============================================================
 
 LITERAL
 ============================================================
 i	cnt	val
 ============================================================
-1	1	(8, int)
-2	1	(100, int)
-3	1	(0, int)
-4	1	(010, int)
-5	1	(0x2A, int)
-6	1	(0b101010, int)
-7	1	(1_000_000L, long)
-8	1	(0.13, double)
-9	1	(1.2e1, double)
-10	1	(0x1.0p1, double)
-11	1	(1.1f, float)
-12	1	('₽', char)
-13	1	('A', char)
+1	1	(8)
+2	1	(100)
+3	4	(0)
+4	1	(010)
+5	1	(0x2A)
+6	1	(0b101010)
+7	1	(1_000_000L)
+8	1	(0.13)
+9	1	(1.2e1)
+10	1	(0x1.0p1)
+11	1	(1.1f)
+12	1	('₽')
+13	1	('A')
+14	1	(true)
+15	1	("Расчет заработной платы")
+16	1	("Введите количество рабочих дней: ")
+17	2	(1)
+18	1	(7)
+19	1	(31)
+20	1	("Валовая зарплата: ")
+21	3	(" ")
+22	1	("Налог: ")
+23	1	("К выплате: ")
+24	1	(2)
+25	1	("Проверка лимита: ")
+26	1	("Символ отчета: ")
 ============================================================
 
 OPERATOR
 ============================================================
 i	cnt	val
 ============================================================
-1	3	.
-2	16	=
+1	23	=
+2	1	<=
+3	3	++
+4	1	%
+5	1	==
+6	1	>
+7	2	+=
+8	5	*
+9	13	+
+10	1	-
+11	3	<
 ============================================================
 
 SEPARATOR
 ============================================================
 i	cnt	val
 ============================================================
-1	16	;
-2	2	{
-3	2	(
-4	1	[
-5	1	]
-6	2	)
+1	18	.
+2	39	;
+3	6	{
+4	17	(
+5	1	[
+6	1	]
+7	17	)
+8	6	}
 ============================================================
 
 Lexemes
@@ -147,6 +212,35 @@ double <ИД29> = <ИД30> ;
 float <ИД31> = <ИД32> ; 
 char <ИД33> = <ИД34> ; 
 char <ИД35> = <ИД36> ; 
-char <ИД37> = Unterminated char literal ; 
-var <ИД38> = Unterminated text block 
+boolean <ИД37> = <ИД38> ; 
+var <ИД39> = <ИД40> ; 
+<ИД9> . <ИД41> . <ИД42> ( <ИД39> ) ; 
+<ИД9> . <ИД41> . <ИД43> ( <ИД44> ) ; 
+int <ИД45> = <ИД8> . <ИД46> ( ) ; 
+for ( int <ИД47> = <ИД48> ; <ИД47> <= <ИД45> ; <ИД47> ++ ) { 
+if ( <ИД47> % <ИД49> == <ИД16> ) continue ; 
+if ( <ИД47> > <ИД50> ) break ; 
+<ИД15> += <ИД11> * <ИД13> ; 
+} 
+if ( <ИД37> ) { 
+<ИД15> += <ИД17> + <ИД19> + <ИД21> ; 
+} 
+double <ИД51> = <ИД15> * <ИД52> * <ИД27> * <ИД29> ; 
+double <ИД53> = <ИД51> * <ИД25> ; 
+double <ИД54> = <ИД51> - <ИД53> ; 
+<ИД9> . <ИД41> . <ИД42> ( <ИД55> + <ИД51> + <ИД56> + <ИД33> ) ; 
+<ИД9> . <ИД41> . <ИД42> ( <ИД57> + <ИД53> + <ИД56> + <ИД33> ) ; 
+<ИД9> . <ИД41> . <ИД42> ( <ИД58> + <ИД54> + <ИД56> + <ИД33> ) ; 
+int <ИД59> = <ИД16> ; 
+while ( <ИД59> < <ИД60> ) { 
+<ИД9> . <ИД41> . <ИД42> ( <ИД61> + ( <ИД54> < <ИД23> ) ) ; 
+<ИД59> ++ ; 
+} 
+int <ИД62> = <ИД16> ; 
+do { 
+<ИД9> . <ИД41> . <ИД42> ( <ИД63> + <ИД35> ) ; 
+<ИД62> ++ ; 
+} while ( <ИД62> < <ИД48> ) ; 
+} 
+} 
 ============================================================

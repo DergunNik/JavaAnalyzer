@@ -16,6 +16,9 @@ public class Parser
 {
     private readonly IReadOnlyList<Token> _tokens;
     private int _pos;
+    private readonly List<string> _errors = new();
+
+    public IReadOnlyList<string> Errors => _errors;
 
     public Parser(IReadOnlyList<Token> tokens)
     {
@@ -75,22 +78,45 @@ public class Parser
         return value == null || token.Value == value;
     }
 
+    private void Report(SyntaxException ex)
+    {
+        _errors.Add(ex.Message);
+    }
+
     public CompilationUnitNode Parse()
     {
         var root = new CompilationUnitNode();
 
         while (Check(TokenKind.KEYWORD, "import"))
-            root.Imports.Add(ParseImport());
+        {
+            try
+            {
+                root.Imports.Add(ParseImport());
+            }
+            catch (SyntaxException ex)
+            {
+                Report(ex);
+                SynchronizeToTopLevelBoundary();
+            }
+        }
 
         while (!IsEOF)
         {
-            while (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "static"))
-                Advance();
+            try
+            {
+                while (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "static"))
+                    Advance();
 
-            if (Check(TokenKind.KEYWORD, "class"))
-                root.Classes.Add(ParseClass());
-            else if (!IsEOF)
-                Advance();
+                if (Check(TokenKind.KEYWORD, "class"))
+                    root.Classes.Add(ParseClass());
+                else if (!IsEOF)
+                    Advance();
+            }
+            catch (SyntaxException ex)
+            {
+                Report(ex);
+                SynchronizeToTopLevelBoundary();
+            }
         }
 
         return root;
@@ -102,7 +128,12 @@ public class Parser
         var path = new StringBuilder();
 
         while (!Check(TokenKind.SEPARATOR, ";"))
+        {
+            if (IsEOF)
+                throw new SyntaxException("Unterminated import statement", Current);
+
             path.Append(Advance().Value);
+        }
 
         MatchValue(TokenKind.SEPARATOR, ";");
         return new ImportNode { Path = path.ToString() };
@@ -115,8 +146,25 @@ public class Parser
         MatchValue(TokenKind.SEPARATOR, "{");
 
         var node = new ClassDeclNode { Name = name };
+
         while (!Check(TokenKind.SEPARATOR, "}"))
-            node.Members.Add(ParseClassMember());
+        {
+            if (IsEOF)
+            {
+                Report(new SyntaxException("Unterminated class body", Current));
+                return node;
+            }
+
+            try
+            {
+                node.Members.Add(ParseClassMember());
+            }
+            catch (SyntaxException ex)
+            {
+                Report(ex);
+                SynchronizeToClassMemberBoundary();
+            }
+        }
 
         MatchValue(TokenKind.SEPARATOR, "}");
         return node;
@@ -143,6 +191,8 @@ public class Parser
 
                 if (Check(TokenKind.SEPARATOR, ","))
                     Advance();
+                else if (!Check(TokenKind.SEPARATOR, ")"))
+                    throw new SyntaxException("Expected ',' or ')'", Current);
             }
 
             MatchValue(TokenKind.SEPARATOR, ")");
@@ -167,7 +217,23 @@ public class Parser
         var block = new BlockStatementNode();
 
         while (!Check(TokenKind.SEPARATOR, "}"))
-            block.Statements.Add(ParseStatement());
+        {
+            if (IsEOF)
+            {
+                Report(new SyntaxException("Unterminated block", Current));
+                return block;
+            }
+
+            try
+            {
+                block.Statements.Add(ParseStatement());
+            }
+            catch (SyntaxException ex)
+            {
+                Report(ex);
+                SynchronizeToStatementBoundary();
+            }
+        }
 
         MatchValue(TokenKind.SEPARATOR, "}");
         return block;
@@ -217,9 +283,10 @@ public class Parser
 
     private StatementNode ParseSwitchStatement()
     {
-        var expr = ParseExpression();
-        if (Check(TokenKind.SEPARATOR, ";")) Advance();
-        return new ExpressionStatementNode { Expression = expr };
+        ParseSwitchHeader();
+        ParseSwitchSections();
+        MatchValue(TokenKind.SEPARATOR, "}");
+        return new BlockStatementNode();
     }
 
     private WhileStatementNode ParseWhile()
@@ -456,7 +523,7 @@ public class Parser
 
         while (true)
         {
-            if (Check(TokenKind.OPERATOR, "."))
+            if (Check(TokenKind.SEPARATOR, "."))
             {
                 Advance();
                 expr = new MemberAccessExpressionNode
@@ -532,16 +599,7 @@ public class Parser
             return ParseObjectCreation();
 
         if (Check(TokenKind.KEYWORD, "switch"))
-        {
-            Advance();
-            MatchValue(TokenKind.SEPARATOR, "(");
-            var switchExpr = ParseExpression();
-            MatchValue(TokenKind.SEPARATOR, ")");
-            MatchValue(TokenKind.SEPARATOR, "{");
-            while (!Check(TokenKind.SEPARATOR, "}")) Advance();
-            MatchValue(TokenKind.SEPARATOR, "}");
-            return new IdentifierExpressionNode { Name = $"switch({switchExpr})" };
-        }
+            return ParseSwitchExpression();
 
         throw new SyntaxException($"Unexpected token {Current.Value}", Current);
     }
@@ -587,6 +645,135 @@ public class Parser
         return array;
     }
 
+    private ExpressionNode ParseSwitchExpression()
+    {
+        ParseSwitchHeader();
+        ParseSwitchSections();
+        MatchValue(TokenKind.SEPARATOR, "}");
+        return new IdentifierExpressionNode { Name = "switch" };
+    }
+
+    private void ParseSwitchHeader()
+    {
+        MatchValue(TokenKind.KEYWORD, "switch");
+        MatchValue(TokenKind.SEPARATOR, "(");
+        _ = ParseExpression();
+        MatchValue(TokenKind.SEPARATOR, ")");
+        MatchValue(TokenKind.SEPARATOR, "{");
+    }
+
+    private void ParseSwitchSections()
+    {
+        bool sawDefault = false;
+
+        while (!Check(TokenKind.SEPARATOR, "}"))
+        {
+            if (IsEOF)
+            {
+                Report(new SyntaxException("Unterminated switch block", Current));
+                return;
+            }
+
+            try
+            {
+                if (Check(TokenKind.KEYWORD, "case"))
+                {
+                    ParseSwitchCaseSection();
+                    continue;
+                }
+
+                if (Check(TokenKind.KEYWORD, "default"))
+                {
+                    if (sawDefault)
+                        throw new SyntaxException("Duplicate 'default' label", Current);
+
+                    sawDefault = true;
+                    ParseSwitchDefaultSection();
+                    continue;
+                }
+
+                throw new SyntaxException("Expected 'case' or 'default' in switch block", Current);
+            }
+            catch (SyntaxException ex)
+            {
+                Report(ex);
+                SynchronizeToSwitchSectionBoundary();
+            }
+        }
+    }
+
+    private void ParseSwitchCaseSection()
+    {
+        MatchValue(TokenKind.KEYWORD, "case");
+        ParseSwitchLabelList();
+        ParseSwitchArmDelimiterAndBody();
+    }
+
+    private void ParseSwitchDefaultSection()
+    {
+        MatchValue(TokenKind.KEYWORD, "default");
+        ParseSwitchArmDelimiterAndBody();
+    }
+
+    private void ParseSwitchLabelList()
+    {
+        _ = ParseExpression();
+
+        while (Check(TokenKind.SEPARATOR, ","))
+        {
+            Advance();
+            _ = ParseExpression();
+        }
+    }
+
+    private void ParseSwitchArmDelimiterAndBody()
+    {
+        if (Check(TokenKind.OPERATOR, ":"))
+        {
+            Advance();
+            ParseSwitchColonBody();
+            return;
+        }
+
+        if (Check(TokenKind.OPERATOR, "->"))
+        {
+            Advance();
+            ParseSwitchArrowBody();
+            return;
+        }
+
+        throw new SyntaxException("Expected ':' or '->' after switch label", Current);
+    }
+
+    private void ParseSwitchColonBody()
+    {
+        while (!Check(TokenKind.KEYWORD, "case") &&
+               !Check(TokenKind.KEYWORD, "default") &&
+               !Check(TokenKind.SEPARATOR, "}"))
+        {
+            if (IsEOF)
+                throw new SyntaxException("Unterminated switch block", Current);
+
+            ParseStatement();
+        }
+    }
+
+    private void ParseSwitchArrowBody()
+    {
+        if (Check(TokenKind.SEPARATOR, "{"))
+        {
+            ParseBlock();
+            if (Check(TokenKind.SEPARATOR, ";"))
+                Advance();
+            return;
+        }
+
+        _ = ParseExpression();
+
+        if (Check(TokenKind.SEPARATOR, ";"))
+            Advance();
+    }
+
     private string ReadTypeName(ref int index, bool allowArraySuffix = true)
     {
         if (!IsTypeStartToken(PeekAt(index)))
@@ -595,7 +782,7 @@ public class Parser
         var sb = new StringBuilder();
         sb.Append(AdvanceAt(ref index).Value);
 
-        while (CheckAt(index, TokenKind.OPERATOR, "."))
+        while (CheckAt(index, TokenKind.SEPARATOR, "."))
         {
             index++;
             sb.Append('.');
@@ -662,4 +849,90 @@ public class Parser
 
     private bool IsAssignmentOperator(string op) => op is
         "=" or "+=" or "-=" or "*=" or "/=" or "%=" or "&=" or "|=" or "^=" or "<<=" or ">>=";
+
+    private bool IsStatementStart(Token token)
+    {
+        if (token.Kind == TokenKind.IDENTIFIER || token.Kind == TokenKind.LITERAL)
+            return true;
+
+        if (token.Kind == TokenKind.SEPARATOR)
+            return token.Value is "{" or "(" or "[" or "}";
+
+        if (token.Kind != TokenKind.KEYWORD)
+            return false;
+
+        return token.Value is
+            "if" or "switch" or "while" or "do" or "for" or "return" or
+            "break" or "continue" or "new" or "throw" or "case" or "default" or
+            "public" or "static" or "class" or "import";
+    }
+
+    private void SynchronizeToStatementBoundary()
+    {
+        while (!IsEOF)
+        {
+            if (Check(TokenKind.SEPARATOR, ";"))
+            {
+                Advance();
+                return;
+            }
+
+            if (Check(TokenKind.SEPARATOR, "}") || Check(TokenKind.KEYWORD, "case") || Check(TokenKind.KEYWORD, "default") || IsStatementStart(Current))
+                return;
+
+            Advance();
+        }
+    }
+
+    private void SynchronizeToSwitchSectionBoundary()
+    {
+        while (!IsEOF)
+        {
+            if (Check(TokenKind.SEPARATOR, "}") || Check(TokenKind.KEYWORD, "case") || Check(TokenKind.KEYWORD, "default"))
+                return;
+
+            Advance();
+        }
+    }
+
+    private void SynchronizeToClassMemberBoundary()
+    {
+        while (!IsEOF)
+        {
+            if (Check(TokenKind.SEPARATOR, "}") ||
+                Check(TokenKind.KEYWORD, "public") ||
+                Check(TokenKind.KEYWORD, "static") ||
+                Check(TokenKind.KEYWORD, "class") ||
+                Check(TokenKind.KEYWORD, "import"))
+                return;
+
+            if (Check(TokenKind.SEPARATOR, ";"))
+            {
+                Advance();
+                return;
+            }
+
+            Advance();
+        }
+    }
+
+    private void SynchronizeToTopLevelBoundary()
+    {
+        while (!IsEOF)
+        {
+            if (Check(TokenKind.KEYWORD, "import") || Check(TokenKind.KEYWORD, "class"))
+                return;
+
+            if (Check(TokenKind.KEYWORD, "public") || Check(TokenKind.KEYWORD, "static"))
+                return;
+
+            if (Check(TokenKind.SEPARATOR, ";") || Check(TokenKind.SEPARATOR, "}"))
+            {
+                Advance();
+                return;
+            }
+
+            Advance();
+        }
+    }
 }
