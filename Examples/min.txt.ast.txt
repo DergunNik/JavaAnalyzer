@@ -1,0 +1,15 @@
+﻿ CompilationUnit (Root)
+            │
+        Class: T
+            │
+    Method: void main
+            │───────────────────────────────────────────────────────────┐
+Parameter: String[] args                                            Block { }
+                                   ┌────────────────────────────────────│────────────────────────────┐
+                                VarDecl                              VarDecl                  ExpressionStmt
+                             ┌─────│────────┐                    ┌──────│──────────┐             ┌───│────┐
+                           int a   =   BinaryExpr            String s   =     BinaryExpr         s   =   "5"
+                                        ┌───│────────┐                        ┌────│─────┐
+                                        1   +   BinaryExpr                  "12"   +   "34"
+                                                 ┌───│───┐
+                                                 2   *   3

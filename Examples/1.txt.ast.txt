@@ -1,184 +1,21 @@
-﻿└── CompilationUnit (Root)
-    ├── Import: java.util.Scanner
-    └── Class: Program1
-        └── Method: void main
-            ├── Parameter: String[] args
-            └── Block { }
-                ├── VarDecl: Scanner scanner
-                │   └── NewObject: Scanner
-                │       └── MemberAccess: .in
-                │           └── Identifier: System
-                ├── VarDecl: byte workHoursPerDay
-                │   └── Literal: 8
-                ├── VarDecl: short hourlyRate
-                │   └── Literal: 100
-                ├── VarDecl: int baseSalary
-                │   └── Literal: 0
-                ├── VarDecl: int octalBonus
-                │   └── Literal: 010
-                ├── VarDecl: int hexBonus
-                │   └── Literal: 0x2A
-                ├── VarDecl: int binBonus
-                │   └── Literal: 0b101010
-                ├── VarDecl: long annualLimit
-                │   └── Literal: 1_000_000L
-                ├── VarDecl: double taxRate
-                │   └── Literal: 0.13
-                ├── VarDecl: double sciCoeff
-                │   └── Literal: 1.2e1
-                ├── VarDecl: double hexCoeff
-                │   └── Literal: 0x1.0p1
-                ├── VarDecl: float constconst
-                │   └── Literal: 1.1f
-                ├── VarDecl: char currency
-                │   └── Literal: '₽'
-                ├── VarDecl: char unicodeChar
-                │   └── Literal: 'A'
-                ├── VarDecl: boolean hasBonus
-                │   └── Literal: true
-                ├── VarDecl: var message
-                │   └── Literal: "Расчет заработной платы"
-                ├── ExpressionStmt
-                │   └── MethodCall
-                │       ├── MemberAccess: .println
-                │       │   └── MemberAccess: .out
-                │       │       └── Identifier: System
-                │       └── Identifier: message
-                ├── ExpressionStmt
-                │   └── MethodCall
-                │       ├── MemberAccess: .print
-                │       │   └── MemberAccess: .out
-                │       │       └── Identifier: System
-                │       └── Literal: "Введите количество рабочих дней: "
-                ├── VarDecl: int days
-                │   └── MethodCall
-                │       └── MemberAccess: .nextInt
-                │           └── Identifier: scanner
-                ├── ForStatement
-                │   ├── VarDecl: int i
-                │   │   └── Literal: 1
-                │   ├── BinaryExpr (Op: <=)
-                │   │   ├── Identifier: i
-                │   │   └── Identifier: days
-                │   ├── UnaryExpr (Op: ++, Postfix: True)
-                │   │   └── Identifier: i
-                │   └── Block { }
-                │       ├── IfStatement
-                │       │   ├── BinaryExpr (Op: ==)
-                │       │   │   ├── BinaryExpr (Op: %)
-                │       │   │   │   ├── Identifier: i
-                │       │   │   │   └── Literal: 7
-                │       │   │   └── Literal: 0
-                │       │   └── Continue
-                │       ├── IfStatement
-                │       │   ├── BinaryExpr (Op: >)
-                │       │   │   ├── Identifier: i
-                │       │   │   └── Literal: 31
-                │       │   └── Break
-                │       └── ExpressionStmt
-                │           └── Assignment (Op: +=)
-                │               ├── Identifier: baseSalary
-                │               └── BinaryExpr (Op: *)
-                │                   ├── Identifier: workHoursPerDay
-                │                   └── Identifier: hourlyRate
-                ├── IfStatement
-                │   ├── Identifier: hasBonus
-                │   └── Block { }
-                │       └── ExpressionStmt
-                │           └── Assignment (Op: +=)
-                │               ├── Identifier: baseSalary
-                │               └── BinaryExpr (Op: +)
-                │                   ├── BinaryExpr (Op: +)
-                │                   │   ├── Identifier: octalBonus
-                │                   │   └── Identifier: hexBonus
-                │                   └── Identifier: binBonus
-                ├── VarDecl: double grossSalary
-                │   └── BinaryExpr (Op: *)
-                │       ├── BinaryExpr (Op: *)
-                │       │   ├── BinaryExpr (Op: *)
-                │       │   │   ├── Identifier: baseSalary
-                │       │   │   └── Identifier: experienceCoeff
-                │       │   └── Identifier: sciCoeff
-                │       └── Identifier: hexCoeff
-                ├── VarDecl: double tax
-                │   └── BinaryExpr (Op: *)
-                │       ├── Identifier: grossSalary
-                │       └── Identifier: taxRate
-                ├── VarDecl: double netSalary
-                │   └── BinaryExpr (Op: -)
-                │       ├── Identifier: grossSalary
-                │       └── Identifier: tax
-                ├── ExpressionStmt
-                │   └── MethodCall
-                │       ├── MemberAccess: .println
-                │       │   └── MemberAccess: .out
-                │       │       └── Identifier: System
-                │       └── BinaryExpr (Op: +)
-                │           ├── BinaryExpr (Op: +)
-                │           │   ├── BinaryExpr (Op: +)
-                │           │   │   ├── Literal: "Валовая зарплата: "
-                │           │   │   └── Identifier: grossSalary
-                │           │   └── Literal: " "
-                │           └── Identifier: currency
-                ├── ExpressionStmt
-                │   └── MethodCall
-                │       ├── MemberAccess: .println
-                │       │   └── MemberAccess: .out
-                │       │       └── Identifier: System
-                │       └── BinaryExpr (Op: +)
-                │           ├── BinaryExpr (Op: +)
-                │           │   ├── BinaryExpr (Op: +)
-                │           │   │   ├── Literal: "Налог: "
-                │           │   │   └── Identifier: tax
-                │           │   └── Literal: " "
-                │           └── Identifier: currency
-                ├── ExpressionStmt
-                │   └── MethodCall
-                │       ├── MemberAccess: .println
-                │       │   └── MemberAccess: .out
-                │       │       └── Identifier: System
-                │       └── BinaryExpr (Op: +)
-                │           ├── BinaryExpr (Op: +)
-                │           │   ├── BinaryExpr (Op: +)
-                │           │   │   ├── Literal: "К выплате: "
-                │           │   │   └── Identifier: netSalary
-                │           │   └── Literal: " "
-                │           └── Identifier: currency
-                ├── VarDecl: int j
-                │   └── Literal: 0
-                ├── WhileStatement
-                │   ├── BinaryExpr (Op: <)
-                │   │   ├── Identifier: j
-                │   │   └── Literal: 2
-                │   └── Block { }
-                │       ├── ExpressionStmt
-                │       │   └── MethodCall
-                │       │       ├── MemberAccess: .println
-                │       │       │   └── MemberAccess: .out
-                │       │       │       └── Identifier: System
-                │       │       └── BinaryExpr (Op: +)
-                │       │           ├── Literal: "Проверка лимита: "
-                │       │           └── BinaryExpr (Op: <)
-                │       │               ├── Identifier: netSalary
-                │       │               └── Identifier: annualLimit
-                │       └── ExpressionStmt
-                │           └── UnaryExpr (Op: ++, Postfix: True)
-                │               └── Identifier: j
-                ├── VarDecl: int k
-                │   └── Literal: 0
-                └── DoWhileStatement
-                    ├── Block { }
-                    │   ├── ExpressionStmt
-                    │   │   └── MethodCall
-                    │   │       ├── MemberAccess: .println
-                    │   │       │   └── MemberAccess: .out
-                    │   │       │       └── Identifier: System
-                    │   │       └── BinaryExpr (Op: +)
-                    │   │           ├── Literal: "Символ отчета: "
-                    │   │           └── Identifier: unicodeChar
-                    │   └── ExpressionStmt
-                    │       └── UnaryExpr (Op: ++, Postfix: True)
-                    │           └── Identifier: k
-                    └── BinaryExpr (Op: <)
-                        ├── Identifier: k
-                        └── Literal: 1
+﻿ ● CompilationUnit (Root)
+             ┼─────────────────────────────┐
+○ Import: java.util.Scanner        ● Class: Program1
+                                           │
+                                  ● Method: void main
+                                           ┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                              ○ Parameter: String[] args                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ● Block { }
+                                                                        ┌──────────────────────────────┬───────────────────────────────┬────────────────────────────┬───────────────────────────┬──────────────────────────┬─────────────────────────┬───────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬───────────────────────────┬─────────────────────────────┬──────────────────────────────────┼────────────────────────────────┬─────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────┬─────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────────────────────────────────────────────┬───────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬──────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬──────────────────────┐
+                                                           ● VarDecl: Scanner scanner   ● VarDecl: byte workHoursPerDay   ● VarDecl: short hourlyRate   ● VarDecl: int baseSalary   ● VarDecl: int octalBonus   ● VarDecl: int hexBonus   ● VarDecl: int binBonus   ● VarDecl: long annualLimit   ● VarDecl: double taxRate   ● VarDecl: double sciCoeff   ● VarDecl: double hexCoeff   ● VarDecl: float constconst   ● VarDecl: char currency   ● VarDecl: char unicodeChar   ● VarDecl: boolean hasBonus          ● VarDecl: var message              ● ExpressionStmt                                  ● ExpressionStmt                                                          ● VarDecl: int days                         ● ForStatement                                                                                                                                                                                                                                                  ● IfStatement                                                                                                               ● VarDecl: double grossSalary                                                                                    ● VarDecl: double tax                             ● VarDecl: double netSalary                          ● ExpressionStmt                                                                                                                   ● ExpressionStmt                                                                                                ● ExpressionStmt                                                                                                      ● VarDecl: int j   ● WhileStatement                                                                                                                                                       ● VarDecl: int k      ● DoWhileStatement
+                                                                        │                              │                               │                            │                           │                          │                         │                           │                            │                            │                            │                            │                            │                           │                             │                                  │                                │                                                 │                                                                          │                      ┌──────────────────┼───────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────┐                                                                                                                                     ┼─────────────────────────┐                                                                                                         │                                                                                                            │                                                    │                                               │                                                                                                                                  │                                                                                                               │                                                                                                                     │                  ┼─────────────────────────────────────┐                                                                                                                                │                      ┼────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                                                              ● NewObject: Scanner               ○ Literal: 8                   ○ Literal: 100                ○ Literal: 0               ○ Literal: 010             ○ Literal: 0x2A         ○ Literal: 0b101010        ○ Literal: 1_000_000L           ○ Literal: 0.13             ○ Literal: 1.2e1            ○ Literal: 0x1.0p1             ○ Literal: 1.1f              ○ Literal: '₽'              ○ Literal: 'A'                ○ Literal: true         ○ Literal: "Расчет заработной платы"         ● MethodCall                                      ● MethodCall                                                               ● MethodCall         ● VarDecl: int i   ● BinaryExpr [<=]                       ● UnaryExpr [++]                                                                    ● Block { }                                                                                                                     ○ Identifier: hasBonus          ● Block { }                                                                                            ● BinaryExpr [*]                                                                                             ● BinaryExpr [*]                                     ● BinaryExpr [-]                                  ● MethodCall                                                                                                                       ● MethodCall                                                                                                    ● MethodCall                                                                                                          ○ Literal: 0     ● BinaryExpr [<]                         ● Block { }                                                                                                                     ○ Literal: 0            ● Block { }                                                                                       ● BinaryExpr [<]
+                                                                        │                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ┼────────────────────────┐                        ┼────────────────────────────────────┐                                     │                      │                  ┼───────────────────┐                   │                  ┌─────────────────────────────────────────────────────────────┼────────────────────────────────────────────────┐                                                                                                              │                                                                                                         ┼──────────────────────────────────────────────────────────────────────────────────┐                         ┼─────────────────────────┐                          ┼───────────────────────┐                       ┼─────────────────────────────┐                                                                                                    ┼────────────────────────┐                                                                                      ┼──────────────────────────┐                                                                                                             ┼────────────────┐                    ┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                         ┼─────────────────────────────────────────────────────────────────────────────────┐                  ┼────────────────┐
+                                                               ● MemberAccess: .in                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ● MemberAccess: .println   ○ Identifier: message   ● MemberAccess: .print   ○ Literal: "Введите количество рабочих дней: "   ● MemberAccess: .nextInt     ○ Literal: 1      ○ Identifier: i   ○ Identifier: days    ○ Identifier: i     ● IfStatement                                                 ● IfStatement                                  ● ExpressionStmt                                                                                               ● ExpressionStmt                                                                                          ● BinaryExpr [*]                                                                ○ Identifier: hexCoeff   ○ Identifier: grossSalary   ○ Identifier: taxRate    ○ Identifier: grossSalary   ○ Identifier: tax   ● MemberAccess: .println          ● BinaryExpr [+]                                                                                 ● MemberAccess: .println     ● BinaryExpr [+]                                                                   ● MemberAccess: .println       ● BinaryExpr [+]                                                                                               ○ Identifier: j   ○ Literal: 2       ● ExpressionStmt                                                                                              ● ExpressionStmt                          ● ExpressionStmt                                                                  ● ExpressionStmt    ○ Identifier: k   ○ Literal: 1
+                                                                        │                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       │                                                 │                                                                          │                                                                                                    ┼─────────────────────────────────────────────┐               ┼─────────────────────────────┐                  │                                                                                                              │                                                                                                         ┼─────────────────────────────────────────────────────────┐                                                                                                                                                       │                             ┼──────────────────────────────────────────────────────────────────────────┐                         │                        ┼────────────────────────────────────────────────────────────┐                         │                          ┼────────────────────────────────────────────────────────────────────┐                                                                              │                                                                                                             │                                         │                                                                                 │
+                                                              ○ Identifier: System                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ● MemberAccess: .out                              ● MemberAccess: .out                                                       ○ Identifier: scanner                                                                                  ● BinaryExpr [==]                                ○ Continue   ● BinaryExpr [>]                   ○ Break       ● Assignment [+=]                                                                                              ● Assignment [+=]                                                                                         ● BinaryExpr [*]                                       ○ Identifier: sciCoeff                                                                                                                                   ● MemberAccess: .out            ● BinaryExpr [+]                                                        ○ Identifier: currency     ● MemberAccess: .out       ● BinaryExpr [+]                                          ○ Identifier: currency     ● MemberAccess: .out         ● BinaryExpr [+]                                                  ○ Identifier: currency                                                              ● MethodCall                                                                                                ● UnaryExpr [++]                            ● MethodCall                                                                    ● UnaryExpr [++]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                │                                                 │                                                                                                                                                                               ┼───────────────────────────────┐                             ┼────────────────┐                               ┼────────────────────────────┐                                                                                 ┼──────────────────────────┐                                                                              ┼────────────────────────────┐                                                                                                                                                                                    │                             ┼─────────────────────────────────────────────────────┐                                              │                        ┼───────────────────────────────────────┐                                              │                          ┼───────────────────────────────────────────────┐                                                                                                   ┼─────────────────────────────┐                                                                               │                                         ┼────────────────────────────┐                                                    │
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ○ Identifier: System                              ○ Identifier: System                                                                                                                                                              ● BinaryExpr [%]                  ○ Literal: 0                 ○ Identifier: i   ○ Literal: 31             ○ Identifier: baseSalary         ● BinaryExpr [*]                                                              ○ Identifier: baseSalary       ● BinaryExpr [+]                                                           ○ Identifier: baseSalary   ○ Identifier: experienceCoeff                                                                                                                                                            ○ Identifier: System            ● BinaryExpr [+]                                       ○ Literal: " "                              ○ Identifier: System       ● BinaryExpr [+]                         ○ Literal: " "                              ○ Identifier: System         ● BinaryExpr [+]                                 ○ Literal: " "                                                                                 ● MemberAccess: .println          ● BinaryExpr [+]                                                                 ○ Identifier: j                      ● MemberAccess: .println         ● BinaryExpr [+]                                      ○ Identifier: k
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ┼────────────────┐                                                                                                                          ┼─────────────────────────────┐                                                                              ┼──────────────────────────────────────────────────┐                                                                                                                                                                                                                                                                           ┼──────────────────────────────┐                                                                                              ┼────────────────────┐                                                                                            ┼─────────────────────────┐                                                                                                                         │                             ┼────────────────────────────┐                                                                                            │                            ┼────────────────────────────┐
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ○ Identifier: i   ○ Literal: 7                                                                                                       ○ Identifier: workHoursPerDay   ○ Identifier: hourlyRate                                                           ● BinaryExpr [+]                                ○ Identifier: binBonus                                                                                                                                                                                                                                                  ○ Literal: "Валовая зарплата: "   ○ Identifier: grossSalary                                                                        ○ Literal: "Налог: "   ○ Identifier: tax                                                                        ○ Literal: "К выплате: "   ○ Identifier: netSalary                                                                                                    ● MemberAccess: .out     ○ Literal: "Проверка лимита: "      ● BinaryExpr [<]                                                                           ● MemberAccess: .out     ○ Literal: "Символ отчета: "   ○ Identifier: unicodeChar
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ┼─────────────────────────┐                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        │                                                          ┼──────────────────────────┐                                                                 │
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ○ Identifier: octalBonus   ○ Identifier: hexBonus                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ○ Identifier: System                                      ○ Identifier: netSalary   ○ Identifier: annualLimit                                           ○ Identifier: System

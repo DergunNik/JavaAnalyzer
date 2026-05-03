@@ -1,0 +1,7 @@
+﻿public class T {
+    public static void main(String[] args) {
+        int a = 1 + 2 * 3;
+        String s = "12" + "34";
+        s = "5"; 
+    }
+}
