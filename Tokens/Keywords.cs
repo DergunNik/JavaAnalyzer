@@ -49,7 +49,7 @@ public static class Keywords
         "&=", "|=", "^=",
         "<<=", ">>=", ">>>=",
 
-        "?", ":", "->", "::", "."
+        "?", ":", "->"
     };
 
     public static readonly HashSet<string> SeparatorSet = new(StringComparer.Ordinal)
@@ -59,7 +59,8 @@ public static class Keywords
         "[", "]",
         ";",     
         ",",     
-        "..."    
+        "...",   
+        "::", ".", "@"
     };
 
     

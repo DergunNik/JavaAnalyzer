@@ -58,6 +58,7 @@ public record LiteralToken(TokenKind Kind, string Value, int StartPos, bool IsFr
             _ => Type.Name
         };
 
-        return $"LIT({Value}, {javaType})";
+        // return $"LIT({Value}, {javaType})";
+        return $"LIT({Value})";
     }
 }

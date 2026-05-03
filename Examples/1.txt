@@ -19,11 +19,17 @@ public class Program1 {
         double sciCoeff = 1.2e1;
         double hexCoeff = 0x1.0p1;
 
-        float experienceCoeff = 1.1f;
+        float constconst = 1.1f;
 
         char currency = '₽';
         char unicodeChar = '\u0041';
+        
+        //char c = '';
+        //var s = """"";
+        //₽int a = 1;
+        //char longChar = 'ac';
 
+        
         boolean hasBonus = true;
 
         var message = "Расчет заработной платы";
