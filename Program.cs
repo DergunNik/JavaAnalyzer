@@ -20,7 +20,7 @@ do
 {
     token = lexer.NextToken();
     tokens.Add(token);
-    hasLexerError = hasLexerError || token.Kind == TokenKind.ERROR;
+    hasLexerError |= token.Kind == TokenKind.ERROR;
 } while (token.Kind != TokenKind.EOF);
 
 var processor = new LexerResultProcessor(writeToConsole: true);
@@ -37,16 +37,18 @@ if (hasLexerError)
 
 Console.WriteLine("\n[Запуск синтаксического анализатора...]");
 
+CompilationUnitNode? ast = null;
+Parser? parser = null;
+
 try
 {
-    var parser = new Parser(tokens);
-    CompilationUnitNode ast = parser.Parse();
+    parser = new Parser(tokens);
+    ast = parser.Parse();
 
     if (parser.Errors.Count == 0)
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Синтаксический анализ успешно завершен!");
-        Console.ResetColor();
     }
     else
     {
@@ -54,8 +56,8 @@ try
         Console.WriteLine("\nСинтаксический анализ завершен с ошибками:");
         foreach (var error in parser.Errors)
             Console.WriteLine(error);
-        Console.ResetColor();
     }
+    Console.ResetColor();
 
     var visualizer = new AstVisualizer();
     string astText = visualizer.Visualize(ast);
@@ -71,4 +73,31 @@ catch (Exception ex)
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine($"\nФАТАЛЬНАЯ ОШИБКА: {ex.Message}");
     Console.ResetColor();
+}
+
+if (ast != null)
+{
+    Console.WriteLine("\n[Запуск семантического анализатора...]");
+
+    var semantic = new SemanticAnalyzer();
+    semantic.Analyze(ast);
+
+    if (semantic.Errors.Count == 0)
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Семантический анализ успешно завершен!");
+        Console.ResetColor();
+
+        Console.WriteLine("\n[Запуск интерпретатора...]");
+        var interpreter = new Interpreter();
+        interpreter.Execute(ast);
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Семантические ошибки:");
+        foreach (var err in semantic.Errors)
+            Console.WriteLine(err);
+        Console.ResetColor();
+    }
 }

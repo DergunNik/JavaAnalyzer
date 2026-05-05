@@ -1,72 +1,23 @@
-﻿└── CompilationUnit (Root)
-    ├── Import: java.util.Scanner
-    └── Class: Program2
-        └── Method: void main
-            ├── Parameter: String[] args
-            └── Block { }
-                ├── VarDecl: Scanner scanner
-                │   └── NewObject: Scanner
-                │       └── MemberAccess: .in
-                │           └── Identifier: System
-                ├── VarDecl: int score
-                │   └── MethodCall
-                │       └── MemberAccess: .nextInt
-                │           └── Identifier: scanner
-                ├── IfStatement
-                │   ├── BinaryExpr (Op: >=)
-                │   │   ├── Identifier: score
-                │   │   └── Literal: 90
-                │   ├── Block { }
-                │   │   └── ExpressionStmt
-                │   │       └── MethodCall
-                │   │           ├── MemberAccess: .println
-                │   │           │   └── MemberAccess: .out
-                │   │           │       └── Identifier: System
-                │   │           └── Literal: 1
-                │   └── IfStatement
-                │       ├── BinaryExpr (Op: >=)
-                │       │   ├── Identifier: score
-                │       │   └── Literal: 70
-                │       ├── Block { }
-                │       │   └── ExpressionStmt
-                │       │       └── MethodCall
-                │       │           ├── MemberAccess: .println
-                │       │           │   └── MemberAccess: .out
-                │       │           │       └── Identifier: System
-                │       │           └── Literal: 2
-                │       └── Block { }
-                │           └── ExpressionStmt
-                │               └── MethodCall
-                │                   ├── MemberAccess: .println
-                │                   │   └── MemberAccess: .out
-                │                   │       └── Identifier: System
-                │                   └── Literal: 3
-                ├── VarDecl: int age
-                │   └── MethodCall
-                │       └── MemberAccess: .nextInt
-                │           └── Identifier: scanner
-                ├── VarDecl: String status
-                │   └── BinaryExpr (Op: ?)
-                │       ├── BinaryExpr (Op: >=)
-                │       │   ├── Identifier: age
-                │       │   └── Literal: 18
-                │       └── BinaryExpr (Op: :)
-                │           ├── Literal: "Взрослый"
-                │           └── Literal: "Ребенок"
-                ├── ExpressionStmt
-                │   └── MethodCall
-                │       ├── MemberAccess: .println
-                │       │   └── MemberAccess: .out
-                │       │       └── Identifier: System
-                │       └── Identifier: status
-                ├── VarDecl: int day
-                │   └── Literal: 2
-                ├── Block { }
-                ├── VarDecl: String dayType
-                │   └── Identifier: switch
-                └── ExpressionStmt
-                    └── MethodCall
-                        ├── MemberAccess: .println
-                        │   └── MemberAccess: .out
-                        │       └── Identifier: System
-                        └── Identifier: dayType
+﻿ CompilationUnit (Root)
+            │───────────────────────────┐
+Import: java.util.Scanner        Class: Program2
+                                        │
+                                Method: void main
+                                        │─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                            Parameter: String[] args                                                                                                                                                                                                                                                                                  Block { }
+                                                                         ┌─────────────────────────────────┬────────────────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────│───────────────────────────────────────────────────────────┬──────────────────────────────────────────┬───────────┬────────────────────────┬───────────────────┐
+                                                                      VarDecl                           VarDecl                                            IfStatement                                                                                                                     VarDecl                                     VarDecl                                                 ExpressionStmt                                 VarDecl    Block { }                 VarDecl         ExpressionStmt
+                                                              ┌──────────│─────────┐               ┌───────│─────────┐                          ┌───────────────│────────────────────────────────────────────────────┐                                                                 ┌──────│─────────┐                       ┌─────────│───────────────────┐                                       │                                   ┌──────│───┐                      ┌─────────│──────┐            │
+                                                       Scanner scanner   =    new Scanner      int score   =       Call                    BinaryExpr       Block { }                                           IfStatement                                                         int age   =       Call                String status   =              BinaryExpr                                 Call                               int day   =   2               String dayType   =   switch        Call
+                                                                                   │                                 │                   ┌──────│────┐          │                                    ┌───────────────│──────────────────────────────────┐                                               │                                            ┌────────│────────────────┐                      │──────────────────────────┐                                                                        │──────────────────────────┐
+                                                                             MemberAccess                      MemberAccess            score   >=   90   ExpressionStmt                         BinaryExpr       Block { }                          Block { }                                     MemberAccess                                  BinaryExpr    ?           BinaryExpr            MemberAccess                  status                                                                MemberAccess                  dayType
+                                                                                   │──────┐                          │──────────┐                               │                             ┌──────│────┐          │                                  │                                               │──────────┐                           ┌─────│────┐            ┌───────│───────┐              │────────────────┐                                                                                  │────────────────┐
+                                                                                System   .in                      scanner   .nextInt                          Call                          score   >=   70   ExpressionStmt                     ExpressionStmt                                      scanner   .nextInt                       age   >=   18       "Взрослый"   :   "Ребенок"    MemberAccess       .println                                                                         MemberAccess       .println
+                                                                                                                                                                │───────────────────────┐                            │                                  │                                                                                                                                             │───────┐                                                                                           │───────┐
+                                                                                                                                                          MemberAccess                  1                          Call                               Call                                                                                                                                         System   .out                                                                                       System   .out
+                                                                                                                                                                │────────────────┐                                   │───────────────────────┐          │───────────────────────┐
+                                                                                                                                                          MemberAccess       .println                          MemberAccess                  2    MemberAccess                  3
+                                                                                                                                                                │───────┐                                            │────────────────┐                 │────────────────┐
+                                                                                                                                                             System   .out                                     MemberAccess       .println        MemberAccess       .println
+                                                                                                                                                                                                                     │───────┐                          │───────┐
+                                                                                                                                                                                                                  System   .out                      System   .out

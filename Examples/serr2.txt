@@ -1,0 +1,21 @@
+﻿import java.util.Scanner;
+
+public class TestErrors {
+    public static void main(String[] args) {
+        int a = "text";                 
+
+        int b;
+        int b = 5;                     
+
+        c = 10;                        
+
+        if (a) {                       
+            System.out.println(a);
+        }
+
+        int d = 10 / "2";              
+
+        int[] arr = new int[3];
+        int x = arr + 1;               
+    }
+}

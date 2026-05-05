@@ -1,200 +1,25 @@
-﻿└── CompilationUnit (Root)
-    ├── Import: java.util.ArrayList
-    ├── Import: java.util.HashMap
-    ├── Import: java.util.Map
-    ├── Import: java.util.Scanner
-    └── Class: Program3
-        ├── Method: void main
-        │   ├── Parameter: String[] args
-        │   └── Block { }
-        │       ├── VarDecl: Scanner scanner
-        │       │   └── NewObject: Scanner
-        │       │       └── MemberAccess: .in
-        │       │           └── Identifier: System
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .print
-        │       │       │   └── MemberAccess: .out
-        │       │       │       └── Identifier: System
-        │       │       └── Literal: "Введите строку (или пусто для null): "
-        │       ├── VarDecl: String input
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .nextLine
-        │       │           └── Identifier: scanner
-        │       ├── VarDecl: String emptyRef
-        │       │   └── BinaryExpr (Op: ?)
-        │       │       ├── MethodCall
-        │       │       │   └── MemberAccess: .isEmpty
-        │       │       │       └── Identifier: input
-        │       │       └── BinaryExpr (Op: :)
-        │       │           ├── Literal: null
-        │       │           └── Identifier: input
-        │       ├── VarDecl: String header
-        │       │   └── Literal: """
-                Data Structures
-                List and Map
-                """
-        │       ├── IfStatement
-        │       │   ├── BinaryExpr (Op: ==)
-        │       │   │   ├── Identifier: emptyRef
-        │       │   │   └── Literal: null
-        │       │   └── Block { }
-        │       │       └── ExpressionStmt
-        │       │           └── MethodCall
-        │       │               ├── MemberAccess: .println
-        │       │               │   └── MemberAccess: .out
-        │       │               │       └── Identifier: System
-        │       │               └── Identifier: header
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .print
-        │       │       │   └── MemberAccess: .out
-        │       │       │       └── Identifier: System
-        │       │       └── Literal: "Введите 3 числа: "
-        │       ├── VarDecl: int[] numbers
-        │       │   └── NewObject: int[]
-        │       │       └── Literal: 3
-        │       ├── ForStatement
-        │       │   ├── VarDecl: int i
-        │       │   │   └── Literal: 0
-        │       │   ├── BinaryExpr (Op: <)
-        │       │   │   ├── Identifier: i
-        │       │   │   └── MemberAccess: .length
-        │       │   │       └── Identifier: numbers
-        │       │   ├── UnaryExpr (Op: ++, Postfix: True)
-        │       │   │   └── Identifier: i
-        │       │   └── Block { }
-        │       │       └── ExpressionStmt
-        │       │           └── Assignment (Op: =)
-        │       │               ├── BinaryExpr (Op: [])
-        │       │               │   ├── Identifier: numbers
-        │       │               │   └── Identifier: i
-        │       │               └── MethodCall
-        │       │                   └── MemberAccess: .nextInt
-        │       │                       └── Identifier: scanner
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .nextLine
-        │       │           └── Identifier: scanner
-        │       ├── ForStatement
-        │       │   ├── VarDecl: int num
-        │       │   ├── Identifier: numbers
-        │       │   └── Block { }
-        │       │       └── ExpressionStmt
-        │       │           └── MethodCall
-        │       │               ├── MemberAccess: .print
-        │       │               │   └── MemberAccess: .out
-        │       │               │       └── Identifier: System
-        │       │               └── BinaryExpr (Op: +)
-        │       │                   ├── Identifier: num
-        │       │                   └── Literal: " "
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .println
-        │       │           └── MemberAccess: .out
-        │       │               └── Identifier: System
-        │       ├── VarDecl: var list
-        │       │   └── NewObject: ArrayList<String>
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .print
-        │       │       │   └── MemberAccess: .out
-        │       │       │       └── Identifier: System
-        │       │       └── Literal: "Введите два языка: "
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .add
-        │       │       │   └── Identifier: list
-        │       │       └── MethodCall
-        │       │           └── MemberAccess: .next
-        │       │               └── Identifier: scanner
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .add
-        │       │       │   └── Identifier: list
-        │       │       └── MethodCall
-        │       │           └── MemberAccess: .next
-        │       │               └── Identifier: scanner
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .nextLine
-        │       │           └── Identifier: scanner
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .println
-        │       │       │   └── MemberAccess: .out
-        │       │       │       └── Identifier: System
-        │       │       └── Identifier: list
-        │       ├── VarDecl: var ages
-        │       │   └── NewObject: HashMap<String,Integer>
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .print
-        │       │       │   └── MemberAccess: .out
-        │       │       │       └── Identifier: System
-        │       │       └── Literal: "Введите имя и возраст: "
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .put
-        │       │       │   └── Identifier: ages
-        │       │       ├── MethodCall
-        │       │       │   └── MemberAccess: .next
-        │       │       │       └── Identifier: scanner
-        │       │       └── MethodCall
-        │       │           └── MemberAccess: .nextInt
-        │       │               └── Identifier: scanner
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .nextLine
-        │       │           └── Identifier: scanner
-        │       ├── ForStatement
-        │       │   ├── VarDecl: Map.Entry<String,Integer> entry
-        │       │   ├── MethodCall
-        │       │   │   └── MemberAccess: .entrySet
-        │       │   │       └── Identifier: ages
-        │       │   └── Block { }
-        │       │       └── ExpressionStmt
-        │       │           └── MethodCall
-        │       │               ├── MemberAccess: .println
-        │       │               │   └── MemberAccess: .out
-        │       │               │       └── Identifier: System
-        │       │               └── BinaryExpr (Op: +)
-        │       │                   ├── BinaryExpr (Op: +)
-        │       │                   │   ├── MethodCall
-        │       │                   │   │   └── MemberAccess: .getKey
-        │       │                   │   │       └── Identifier: entry
-        │       │                   │   └── Literal: ": "
-        │       │                   └── MethodCall
-        │       │                       └── MemberAccess: .getValue
-        │       │                           └── Identifier: entry
-        │       ├── ExpressionStmt
-        │       │   └── MethodCall
-        │       │       ├── MemberAccess: .print
-        │       │       │   └── MemberAccess: .out
-        │       │       │       └── Identifier: System
-        │       │       └── Literal: "Введите два числа для суммы: "
-        │       ├── VarDecl: int a
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .nextInt
-        │       │           └── Identifier: scanner
-        │       ├── VarDecl: int b
-        │       │   └── MethodCall
-        │       │       └── MemberAccess: .nextInt
-        │       │           └── Identifier: scanner
-        │       └── ExpressionStmt
-        │           └── MethodCall
-        │               ├── MemberAccess: .println
-        │               │   └── MemberAccess: .out
-        │               │       └── Identifier: System
-        │               └── MethodCall
-        │                   ├── Identifier: calculateSum
-        │                   ├── Identifier: a
-        │                   └── Identifier: b
-        └── Method: int calculateSum
-            ├── Parameter: int a
-            ├── Parameter: int b
-            └── Block { }
-                └── ReturnStatement
-                    └── BinaryExpr (Op: +)
-                        ├── Identifier: a
-                        └── Identifier: b
+﻿                                                         CompilationUnit (Root)
+             ┌────────────────────────────┬─────────────────────────│─────────────────────────┬───────────────────────────┐
+Import: java.util.ArrayList   Import: java.util.HashMap   Import: java.util.Map   Import: java.util.Scanner        Class: Program3
+                                                                                                                          │─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                                                                                                                  Method: void main                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Method: int calculateSum
+                                                                                                                          │───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ┌──────────────────│─────────────────┐
+                                                                                                              Parameter: String[] args                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Block { }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Parameter: int a   Parameter: int b      Block { }
+                                                                                                                                                           ┌────────────────────────────┬──────────────────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────┬─────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────┬─────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────┬────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────┬──────────────────────────────────────────────────────────┬──────────────────────────────────┬──────────────────────────────────│────────────────────────────────────────────────────┬───────────────────────────────────────┬───────────────────────────────────────┬─────────────────────────┬─────────────────────────────────────────┬────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────┬─────────────────────────────────────────────┬──────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────┬───────────────────────────────────┬──────────────────────────────────┐                                                                                           │
+                                                                                                                                                        VarDecl                  ExpressionStmt                                                                     VarDecl                                        VarDecl                                                           VarDecl                                                                                                       IfStatement                                             ExpressionStmt                                                  VarDecl                           ForStatement                                                                                 ExpressionStmt                   ForStatement                                              ExpressionStmt                         VarDecl                        ExpressionStmt                                       ExpressionStmt                          ExpressionStmt                          ExpressionStmt            ExpressionStmt                                VarDecl                              ExpressionStmt                                                            ExpressionStmt                                ExpressionStmt                                              ForStatement                                                                                                       ExpressionStmt                                                      VarDecl                             VarDecl                        ExpressionStmt                                                                              ReturnStatement
+                                                                                                                                                ┌──────────│─────────┐                  │                                                                     ┌────────│─────────┐                         ┌──────────│──────────────────────────┐                            ┌─────────│─────────────────────────────────────────────────┐                                                             │─────────────────┐                                       │                                                 ┌─────────│───────┐               ┌────────────│──────────────────────────────┬───────────────────────────┐                                  │                     ┌─────────│─────────────┐                                            │                           ┌──────│─────────────┐                    │                                                    │                                       │                                       │                         │                                  ┌──────│────────────────┐                       │                                                                         │                                             │                                 ┌────────────────────────│───────────────────────┐                                                                                           │                                                         ┌─────│─────────┐                   ┌─────│─────────┐                        │                                                                                           │
+                                                                                                                                         Scanner scanner   =    new Scanner           Call                                                              String input   =       Call                 String emptyRef   =                     BinaryExpr                  String header   =   """\r\n                Data Structures\r\n                List and Map\r\n                """          BinaryExpr         Block { }                                 Call                                          int[] numbers   =   new int[]        VarDecl    BinaryExpr                      UnaryExpr                   Block { }                            Call                 VarDecl   numbers      Block { }                                      Call                      var list   =   new ArrayList<String>        Call                                                 Call                                    Call                                    Call                      Call                             var ages   =   new HashMap<String,Integer>        Call                                                                      Call                                          Call                             VarDecl                   Call                  Block { }                                                                                     Call                                                      int a   =       Call                int b   =       Call                     Call                                                                                     BinaryExpr
+                                                                                                                                                                     │                  │────────────────────────────────────────┐                                               │                                              ┌────────────────│──────────┐                                                                                                                                   ┌───────│─────┐           │                                       │──────────────────────────────┐                                    │         ┌─────│───┐    ┌───│─────────┐                    │────┐                      │                                  │                     │                       │                                            │                                                                     │───────────────────────────────┐                    │─────────────────┐                     │─────────────────┐                     │                         │─────────────────────────┐                                                        │─────────────────────────────────┐                     ┌─────────────────│────────────────────┐                        │                                 │                        │                       │                                                                                           │────────────────────────────────────┐                                    │                                   │                        │──────────────────────────────────────┐                                                ┌───│───┐
+                                                                                                                                                               MemberAccess       MemberAccess                "Введите строку (или пусто для null): "                      MemberAccess                                       Call               ?     BinaryExpr                                                                                                                           emptyRef   ==   null   ExpressionStmt                           MemberAccess                "Введите 3 числа: "                           3       int i   =   0    i   <   MemberAccess               i   ++               ExpressionStmt                      MemberAccess             int num             ExpressionStmt                                MemberAccess                                                          MemberAccess                "Введите два языка: "    MemberAccess          Call              MemberAccess          Call              MemberAccess              MemberAccess                  list                                                 MemberAccess                "Введите имя и возраст: "   MemberAccess          Call                 Call                 MemberAccess             Map.Entry<String,Integer> entry   MemberAccess           ExpressionStmt                                                                               MemberAccess                "Введите два числа для суммы: "               MemberAccess                        MemberAccess             MemberAccess                               Call                                               a   +   b
+                                                                                                                                                                     │──────┐           │───────────────┐                                                                        │──────────┐                                   │                      ┌────│─────┐                                                                                                                                                       │                                       │───────────────┐                                                                                          │─────────┐                              ┌───────│─────────┐                        │──────────┐                                  │                                            │────────────────┐                                                    │───────────────┐                                    │──────┐          │                     │──────┐          │                     │──────────┐              │────────────────┐                                                                 │───────────────┐                                       │──────┐          │                    │                        │──────────┐                                               │────────┐              │                                                                                           │───────────────┐                                                         │──────────┐                        │──────────┐             │────────────────┐            ┌────────│───┐
+                                                                                                                                                                  System   .in    MemberAccess       .print                                                                   scanner   .nextLine                         MemberAccess               null   :   input                                                                                                                                                   Call                                MemberAccess       .print                                                                                     numbers   .length                      BinaryExpr   =       Call                    scanner   .nextLine                            Call                                     MemberAccess       .println                                           MemberAccess       .print                                list   .add   MemberAccess              list   .add   MemberAccess             scanner   .nextLine    MemberAccess       .println                                                        MemberAccess       .print                                   ages   .put   MemberAccess         MemberAccess                scanner   .nextLine                                         ages   .entrySet        Call                                                                                    MemberAccess       .print                                                    scanner   .nextInt                  scanner   .nextInt    MemberAccess       .println   calculateSum   a   b
+                                                                                                                                                                                        │───────┐                                                                                                                               │─────────┐                                                                                                                                                                               │──────────────────────────┐            │───────┐                                                                                                                                   ┌───────│───┐             │                                                                      │───────────────────────────┐                │───────┐                                                             │───────┐                                                              │────────┐                              │────────┐                                      │───────┐                                                                          │───────┐                                                                 │────────┐           │──────────┐                                                                                                │────────────────────────────────────────────────────────┐                                  │───────┐                                                                                                                              │───────┐
+                                                                                                                                                                                     System   .out                                                                                                                            input   .isEmpty                                                                                                                                                                      MemberAccess                  header       System   .out                                                                                                                               numbers   []   i       MemberAccess                                                           MemberAccess                 BinaryExpr         System   .out                                                         System   .out                                                          scanner   .next                         scanner   .next                                 System   .out                                                                      System   .out                                                             scanner   .next      scanner   .nextInt                                                                                       MemberAccess                                              BinaryExpr                           System   .out                                                                                                                          System   .out
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          │────────────────┐                                                                                                                                                                                            │──────────┐                                                           │───────────────┐      ┌────│────┐                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              │────────────────┐                            ┌──────────│─────────┐
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    MemberAccess       .println                                                                                                                                                                                      scanner   .nextInt                                                  MemberAccess       .print   num   +   " "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       MemberAccess       .println                    BinaryExpr      +       Call
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          │───────┐                                                                                                                                                                                                                                                                            │───────┐                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       │───────┐                     ┌───────────────│─────┐              │
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       System   .out                                                                                                                                                                                                                                                                        System   .out                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   System   .out                  Call              +   ": "       MemberAccess
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             │                                    │─────────┐
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       MemberAccess                             entry   .getValue
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             │────────┐
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           entry   .getKey

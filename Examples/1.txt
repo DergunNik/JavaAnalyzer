@@ -1,6 +1,6 @@
 ﻿import java.util.Scanner;
 
-public class Program1 {
+public class Program {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -23,13 +23,12 @@ public class Program1 {
 
         char currency = '₽';
         char unicodeChar = '\u0041';
-        
+
         //char c = '';
         //var s = """"";
         //₽int a = 1;
         //char longChar = 'ac';
 
-        
         boolean hasBonus = true;
 
         var message = "Расчет заработной платы";
@@ -48,7 +47,7 @@ public class Program1 {
             baseSalary += octalBonus + hexBonus + binBonus;
         }
 
-        double grossSalary = baseSalary * experienceCoeff * sciCoeff * hexCoeff;
+        double grossSalary = baseSalary * 2 * sciCoeff * hexCoeff;
         double tax = grossSalary * taxRate;
         double netSalary = grossSalary - tax;
 

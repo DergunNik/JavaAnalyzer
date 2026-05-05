@@ -1,0 +1,21 @@
+﻿ CompilationUnit (Root)
+            │───────────────────────────┐
+Import: java.util.Scanner       Class: TestErrors
+                                        │
+                                Method: void main
+                                        │────────────────────────────────────────────────────────────────────┐
+                            Parameter: String[] args                                                     Block { }
+                                                               ┌───────────────┬──────────────┬──────────────│──────────────┬──────────────────────────────────────────────┬──────────────────────────────┬───────────────────────┐
+                                                            VarDecl         VarDecl        VarDecl    ExpressionStmt   IfStatement                                      VarDecl                        VarDecl                 VarDecl
+                                                         ┌─────│──────┐        │        ┌─────│───┐      ┌───│────┐         │──────────┐                             ┌─────│────────┐             ┌───────│───────┐         ┌─────│─────────┐
+                                                       int a   =   "text"    int b    int b   =   5      c   =   10         a      Block { }                       int d   =   BinaryExpr     int[] arr   =   new int[]   int x   =    BinaryExpr
+                                                                                                                                       │                                        ┌───│────┐                        │                    ┌────│───┐
+                                                                                                                                ExpressionStmt                                 10   /   "2"                       3                   arr   +   1
+                                                                                                                                       │
+                                                                                                                                     Call
+                                                                                                                                       │───────────────────────┐
+                                                                                                                                 MemberAccess                  a
+                                                                                                                                       │────────────────┐
+                                                                                                                                 MemberAccess       .println
+                                                                                                                                       │───────┐
+                                                                                                                                    System   .out

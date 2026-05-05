@@ -1,6 +1,6 @@
 ﻿
 1	KEY(import)ID(java)SEP(.)ID(util)SEP(.)ID(Scanner)SEP(;)
-2	KEY(public)KEY(class)ID(Program1)SEP({)
+2	KEY(public)KEY(class)ID(Program)SEP({)
 3	KEY(public)KEY(static)KEY(void)ID(main)SEP(()ID(String)SEP([)SEP(])ID(args)SEP())SEP({)
 4	ID(Scanner)ID(scanner)OP(=)KEY(new)ID(Scanner)SEP(()ID(System)SEP(.)ID(in)SEP())SEP(;)
 5	KEY(byte)ID(workHoursPerDay)OP(=)LIT(8)SEP(;)
@@ -29,7 +29,7 @@
 28	KEY(if)SEP(()ID(hasBonus)SEP())SEP({)
 29	ID(baseSalary)OP(+=)ID(octalBonus)OP(+)ID(hexBonus)OP(+)ID(binBonus)SEP(;)
 30	SEP(})
-31	KEY(double)ID(grossSalary)OP(=)ID(baseSalary)OP(*)ID(experienceCoeff)OP(*)ID(sciCoeff)OP(*)ID(hexCoeff)SEP(;)
+31	KEY(double)ID(grossSalary)OP(=)ID(baseSalary)OP(*)LIT(2)OP(*)ID(sciCoeff)OP(*)ID(hexCoeff)SEP(;)
 32	KEY(double)ID(tax)OP(=)ID(grossSalary)OP(*)ID(taxRate)SEP(;)
 33	KEY(double)ID(netSalary)OP(=)ID(grossSalary)OP(-)ID(tax)SEP(;)
 34	ID(System)SEP(.)ID(out)SEP(.)ID(println)SEP(()LIT("Валовая зарплата: ")OP(+)ID(grossSalary)OP(+)LIT(" ")OP(+)ID(currency)SEP())SEP(;)
@@ -67,7 +67,7 @@ i	cnt	val
 1	1	java
 2	1	util
 3	3	Scanner
-4	1	Program1
+4	1	Program
 5	1	main
 6	1	String
 7	1	args
@@ -96,11 +96,10 @@ i	cnt	val
 30	1	nextInt
 31	5	i
 32	4	grossSalary
-33	1	experienceCoeff
-34	3	tax
-35	3	netSalary
-36	3	j
-37	3	k
+33	3	tax
+34	3	netSalary
+35	3	j
+36	3	k
 ============================================================
 
 KEYWORD
@@ -153,11 +152,11 @@ i	cnt	val
 17	2	(1)
 18	1	(7)
 19	1	(31)
-20	1	("Валовая зарплата: ")
-21	3	(" ")
-22	1	("Налог: ")
-23	1	("К выплате: ")
-24	1	(2)
+20	2	(2)
+21	1	("Валовая зарплата: ")
+22	3	(" ")
+23	1	("Налог: ")
+24	1	("К выплате: ")
 25	1	("Проверка лимита: ")
 26	1	("Символ отчета: ")
 ============================================================
@@ -232,15 +231,15 @@ double <ИД54> = <ИД51> - <ИД53> ;
 <ИД9> . <ИД41> . <ИД42> ( <ИД57> + <ИД53> + <ИД56> + <ИД33> ) ; 
 <ИД9> . <ИД41> . <ИД42> ( <ИД58> + <ИД54> + <ИД56> + <ИД33> ) ; 
 int <ИД59> = <ИД16> ; 
-while ( <ИД59> < <ИД60> ) { 
-<ИД9> . <ИД41> . <ИД42> ( <ИД61> + ( <ИД54> < <ИД23> ) ) ; 
+while ( <ИД59> < <ИД52> ) { 
+<ИД9> . <ИД41> . <ИД42> ( <ИД60> + ( <ИД54> < <ИД23> ) ) ; 
 <ИД59> ++ ; 
 } 
-int <ИД62> = <ИД16> ; 
+int <ИД61> = <ИД16> ; 
 do { 
-<ИД9> . <ИД41> . <ИД42> ( <ИД63> + <ИД35> ) ; 
-<ИД62> ++ ; 
-} while ( <ИД62> < <ИД48> ) ; 
+<ИД9> . <ИД41> . <ИД42> ( <ИД62> + <ИД35> ) ; 
+<ИД61> ++ ; 
+} while ( <ИД61> < <ИД48> ) ; 
 } 
 } 
 ============================================================
